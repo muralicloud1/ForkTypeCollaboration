@@ -1,0 +1,2180 @@
+<script type="text/javascript" src="../_layouts/15/autofill.js"></script>
+<script type="text/javascript" src="../_layouts/15/1033/Strings.js"></script>
+<script type="text/javascript" src="../_layouts/15/clientforms.js">  </script>
+<script type="text/javascript" src="../_layouts/15/clientpeoplepicker.js"></script>
+<script type="text/javascript" src="../_layouts/15/clienttemplates.js">  </script>
+
+<!--<script src="../SiteAssets/InnovationDesignFiles/jquery.SPServices-0.7.1a.min.js"></script>-->
+
+<!--<script src="/sites/InnovationEngine/SiteAssets/InnovationDesignFiles/datepicker/js/jquery-1.10.2.js" type="text/javascript"></script>-->
+<script src="../SiteAssets/InnovationDesignFiles/datepicker/js/jquery-ui.1.11.1.js" type="text/javascript"></script>
+<link href="../SiteAssets/InnovationDesignFiles/datepicker/css/jquery.ui.core.css" rel="stylesheet" type="text/css" />
+<link href="../SiteAssets/InnovationDesignFiles/datepicker/css/jquery.ui.datepicker.css" rel="stylesheet" type="text/css" />
+<link href="../SiteAssets/InnovationDesignFiles/datepicker/css/jquery.ui.theme.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+    div.ui-datepicker {
+        font-size: 10px;
+    }
+</style>
+
+<!-- Mark Up Starts here -->
+
+<h4>Due Diligence</h4>
+<ul class="form_nav">
+    <li><a class="active" href="submit_form.html" id="stageSubmit">Submit</a></li>
+    <li class="navarrow">
+        <img src="../SiteAssets/InnovationDesignFiles/images/arrows.png" /></li>
+    <li><a class="curnt_active" href="due_diligence_form.html" id="stageDue">Due Diligence</a></li>
+    <li class="navarrow">
+        <img src="../SiteAssets/InnovationDesignFiles/images/arrows.png" /></li>
+    <li class="boardofdir"><a href="board_of_directors_form.html" id="stageBoard">Board of Directors</a></li>
+    <li class="navarrow">
+        <img src="../SiteAssets/InnovationDesignFiles/images/arrows.png" /></li>
+    <li><a href="board_of_directors_form.html#KHPC" id="stageKHPC">KPHC Review</a></li>
+    <li class="navarrow">
+        <img src="../SiteAssets/InnovationDesignFiles/images/arrows.png" /></li>
+    <li><a href="implementations_form.html" id="stageImplementation">Implementation</a></li>
+    <!--<li class="navarrow" style="display:none;">
+        <img src="../SiteAssets/InnovationDesignFiles/images/arrows.png" /></li>-->
+    <li style="display: none;"><a href="closed_idea.html" id="stageClose">Close</a></li>
+</ul>
+<div class="form-horizontal due_digilence top-buffer">
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Current Stage</label>
+        <div class="col-md-6">
+
+            <select id="currentstage" class="form-control">
+                <!--<option value="1- Submitted">1- Submitted</option>
+                <option value="2- Due Diligence">2- Due Diligence</option>
+                <option value="3- MAPMG Board Decision">3- MAPMG Board Decision</option>
+                <option value="4- KPHC Review">4- KPHC Review</option>
+                <option value="5- Implementation">5- Implementation</option>
+                <option value="Non-Approved">Non-Approved</option>-->
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Idea</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="txtIdeaName">
+        </div>
+    </div>
+      <div class="form-group">
+        <label for="Name" class="col-md-6">Related Idea</label>
+        <div class="col-md-6">
+            <!--<div class="ridea"></div>-->
+            <input type="text" id="relatedIdea" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Date Submitted</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="datesubmitted">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Innovations Consultant Assignment</label>
+        <div class="col-md-6">
+            <div id="innovConsultant"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Project Manager Assignment</label>
+        <div class="col-md-6">
+            <div id="prjManager"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Assignment Date</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control calendar" id="txtAssignDate">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Idea Category</label>
+        <div class="col-md-6">
+            <select id="txtideacategory" class="form-control">
+               <!-- <option>Select</option>
+                <option>Apps</option>
+                <option>Remote Monitoring</option>
+                <option>Store and Forward</option>
+                <option>KPHC Enhancements</option>
+                <option>Pathology/Lab</option>
+                <option>Pharmacy</option>
+                <option>Radiology</option>
+                <option>Other: Please specify</option>-->
+            </select>
+            <input type="text" id="otherDeptarment" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Board Presentation Date</label>
+        <div class="col-md-6">
+            <!--<input type="text" class="form-control calendar" id="txtBoardDate">-->
+            <select id="boardpresentation" class="form-control">
+                <!-- <option></option>-->
+            </select>
+        </div>
+    </div>
+
+    <a href="https://sites.sp.kp.org/teams/iengine/Shared%20Documents/Idea%20Evalutation%20Scorecard%20Instructions%20and%20Guidelines.xlsx?Web=1" target="_blank">
+
+
+        <h4>Idea Evaluation Scorecard Instruction &amp; Guidelines</h4>
+    </a>
+    <div class="clear"></div>
+    <div class="ideatable">
+        <div class="col-md-4 ideascor">
+            <h6>Value Criteria</h6>
+            <div class="form-group">
+                <label for="Name" class="col-md-6">Strategic Fit</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="score1">
+                       <!-- <option>Select</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="col-md-6">User (Provider &amp; Staff) Fit</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="score2">
+                        <!--<option>Select</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group placbot">
+                <label for="Name" class="col-md-8">Value Criteria Score</label>
+                <div class="col-md-4">
+                    <input type="text" value="0" class="form-control" id="avgscore1">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 ideascor">
+            <h6>Feasibility Criteria</h6>
+            <div class="form-group">
+                <label for="Name" class="col-md-6">Ability to delivery - technologically</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="score3">
+                       <!-- <option>Select</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="col-md-6">Ability to delivery - Operationally</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="score4">
+                        <!--<option>Select</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="col-md-6">Resources Required</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="score5">
+                        <!--<option>Select</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group placbot">
+                <label for="Name" class="col-md-8">Feasibility Criteria Score</label>
+                <div class="col-md-4">
+                    <input type="text" value="0" class="form-control" id="avgscore2">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 ideascor">
+            <h6>Idea Score</h6>
+            <div class="scoreIdea">0</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Description" class="col-md-6">Description of due diligence findings</label>
+        <div class="col-md-6">
+            <textarea id="descriptionduediligence" class="form-control  " rows="5"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Name" class="col-md-6">Proposed Decision</label>
+        <div class="col-md-6">
+            <select class="form-control" id="proposeddecision">
+                <!--<option>Select</option>
+                <option>Approved</option>
+                <option>Non-Approved</option>-->
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Description" class="col-md-6">Proposed Decision Reason</label>
+        <div class="col-md-6">
+            <textarea id="proposedreason" class="form-control " rows="5"></textarea>
+        </div>
+    </div>
+
+    <div id="ActionItems">
+        <h5>Action Items</h5>
+        <div class="table-responsive">
+            <table class="table attach_table" id="tableTaskAssignment">
+            </table>
+        </div>
+        <ul class="list-inline top-buffer submt_tablbtn">
+            <li>
+                <button type="button" class="btn btn-default blu_btn" id="btnNewItem" data-toggle="modal" data-target="#myModal">New Task</button></li>
+            <li>
+                <button type="button" class="btn btn-default blu_btn" id="btnDeleteItem">Delete Task</button></li>
+            <li>
+                <button type="button" class="btn btn-default blu_btn" id="btnEditItem" data-toggle="modal" data-target="#myModal">Edit Task</button></li>
+        </ul>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="toggleModelHeading">Create A New Task</h4>
+
+                <div class="modal-body">
+
+                    <div class="form-horizontal" role="form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Name" class="col-md-3">Task Name: </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="txtSubject form-control" id="txtTaskName">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Name" class="col-md-3">Description: </label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="5" id="txtTaskDetails"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Name" class="col-md-3">Assigned To:</label>
+                                    <div class="col-md-9">
+                                        <div id="assignedTo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Name" class="col-md-3">Start Date: </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="txtSubject form-control" id="startDatePicker">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Name" class="col-md-3">End Date: </label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="endDatePicker">
+                                        </select>
+                                        <!--<input type="text" class="txtSubject form-control" id="endDatePicker">-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"  id="task_status_updateDiv">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Name" class="col-md-3">Status </label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="taskStatus">
+                                            <option>Not Started</option>
+                                            <option>In Progress</option>
+                                            <option>Completed</option>
+                                            <option>Deferred</option>
+                                            <option>Waiting on someone else</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--<button class="btn btn-default blu_btn pull-right" type="submit" name="action">Submit</button>-->
+                                <input type="button" class="btn btn-default blu_btn pull-right" id="submitTask" value="Create Task" data-dismiss="modal">
+
+                                <input type="button" class="btn btn-default blu_btn pull-right" id="updateTask" value="Update Task" data-dismiss="modal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>-->
+            </div>
+        </div>
+    </div>
+
+    <h5>Attachments</h5>
+    <div class="table-responsive">
+        <table id="subdoctable" class="table attach_table">
+            <!--<thead>
+                <tr>
+                    <th></th>
+                    <th>Document Title</th>
+                    <th>Document Name</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="docsubmitbody">
+            </tbody>-->
+        </table>
+    </div>
+    <!--Attachments Popup Starts-->
+    <div class="modal fade" id="attachmentpopup" role="dialog">
+        <div class="modal-dialog inner_cont">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-content">
+                <h4>Document Upload</h4>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Name" class="col-md-3">Document Title</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="txtdoctitle" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Name" class="col-md-3">File Upload</label>
+                                    <div class="col-md-9">
+                                        <input id="inputFile" type="file">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="ErrorMessagepost errordiv"></div>
+                                <button type="button" class="btn btn-default blu_btn pull-right newdocupload">Save</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Attachments Popup Ends-->
+
+
+    <ul class="list-inline top-buffer submt_tablbtn">
+        <li><a id="bntaddfile" class="btn btn-default blu_btn" href="javascript:void(0);">Add File
+								<!--<input type="file" style="position:absolute;z-index:2;top:0;left:0px; width: 68px; height: 30px; filter: alpha(opacity=0);-ms-filter:&quot;progid:DXImageTransform.Microsoft.Alpha(Opacity=0)&quot;;opacity:0;background-color:transparent;color:transparent;" name="file_source" size="40" onchange="$(&quot;#upload-file-info&quot;).html($(this).val());">-->
+        </a>
+        </li>
+        <li>
+            <button type="button" class="btn btn-default blu_btn deletedoc">Delete File</button></li>
+    </ul>
+    <div id="StatusSave">
+    </div>
+
+    <ul class="pull-right list-inline savebtnalign">
+        <li>
+            <button type="button" class="btn btn-default blu_btn" id="bntsubmitview">Submit</button></li>
+        <li>
+            <button type="button" class="btn btn-default blu_btn" id="btnsavedoc">Save</button></li>
+        <li>
+            <button type="button" class="btn btn-default blu_btn" id="bntclearsubview">Clear Form</button></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var boardmeetingdetails = [];
+    $(function () {
+        var date = new Date();
+        $('input[id$="txtAssignDate"]').datepicker({ dateFormat: "mm/dd/yy" });
+      //  $('input[id$="txtAssignDate"]').datepicker('setDate', new Date());
+        $('input[id$="txtBoardDate"]').datepicker({ dateFormat: "mm/dd/yy" });
+        $('input[id$="startDatePicker"]').datepicker({ dateFormat: "mm/dd/yy" });
+        //  $('input[id$="endDatePicker"]').datepicker({ dateFormat: "mm/dd/yy" });
+        $('input[id$="txtAssignDate"]').change(function () {
+            selectedDate = $('input[id$="txtAssignDate"]').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+            var d = new Date(selectedDate);
+
+            d.setDate(d.getDate() + 24);
+
+            var dd = new Date(d);
+            dd.setDate(dd.getDate() + 42);
+
+
+
+            var dcurr = d.getMonth() + 1;
+            var ddcurr = dd.getMonth() + 1;
+            var tempstart = d.getFullYear() + "-" + dcurr + "-" + d.getDate();
+            var tempend = dd.getFullYear() + "-" + ddcurr + "-" + dd.getDate();
+            //var temp = tempStartDate.getFullYear() + "-" + curr + "-" + tempStartDate.getDate();
+
+            // alert("start : " + tempstart + "End : " + tempend);
+            Getboardmeetingsdetails(tempstart, tempend);
+        });
+    });
+    function Getboardmeetingsdetails(tempstart, tempend) {
+        var itemId = 0;
+        boardmeetingdetails = [];
+
+        $().SPServices({
+            operation: "GetListItems",
+            async: false,
+            listName: "Board Presentation Meeting Dates",
+            CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='EventDate' /></ViewFields>",
+            CAMLQuery: "<Query><Where><And><Leq><FieldRef Name='EventDate' /><Value Type='DateTime'>" + tempend + "</Value></Leq><Geq><FieldRef Name='EventDate' /><Value Type='DateTime'>" + tempstart + "</Value></Geq></And></Where><OrderBy><FieldRef Name='EventDate' /></OrderBy></Query>",
+            completefunc: function (xData, Status) {
+                $(xData.responseXML).SPFilterNode("z:row").each(function () {
+                    var itemVal = ($(this).attr("ows_EventDate")).split(" ")[0];
+                    var splitDateFormat = itemVal.split('-');
+                    var bDate = splitDateFormat[2];
+                    var bMonth = splitDateFormat[1];
+                    var bYear = splitDateFormat[0];
+                    var itemvalue = bMonth + "/" + bDate + "/" + bYear;
+                    boardmeetingdetails.push(itemvalue);
+                    itemId++;
+                });
+                Getboarddetails();
+            }
+        });
+    }
+    function Getboarddetails() {
+        var itemId = 0;
+       
+        $().SPServices({
+            operation: "GetListItems",
+            async: false,
+            listName: "Board Presentation Meeting Dates",
+            CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='EventDate' /></ViewFields>",
+            CAMLQuery: "<Query><Where><Geq><FieldRef Name='EventDate' /><Value Type='DateTime'><Today /></Value></Geq></Where><OrderBy><FieldRef Name='EventDate' /></OrderBy></Query>",
+            completefunc: function (xData, Status) {
+                var optionsArr = [];
+                var inputElement = $('#boardpresentation');
+                $(xData.responseXML).SPFilterNode("z:row").each(function () {
+                    var itemVal = ($(this).attr("ows_EventDate")).split(" ")[0];
+                    var splitDateFormat = itemVal.split('-');
+                    var bDate = splitDateFormat[2];
+                    var bMonth = splitDateFormat[1];
+                    var bYear = splitDateFormat[0];
+                    var itemvalue = bMonth + "/" + bDate + "/" + bYear;
+                    optionsArr.push("<option>" + itemvalue + "</option>");
+                    itemId++;
+                });
+                inputElement.html(optionsArr.join(""));
+                //alert(boardmeetingdetails[0]);
+                $(inputElement).val(boardmeetingdetails[0]);
+
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+
+
+
+
+    var taskListName = "Innovative Ideas Tasks";
+    var assignToPerson = [];
+    var postTaskId = "";
+    var taskListNameItem = "Innovative_x0020_Ideas_x0020_Tasks";
+    var task_PrimaryInnovator_Idea = "";
+    var task_CoInnovator_Idea = "";
+    var task_IdeaName = "";
+    var task_Description = "";
+
+    var IsSystemAdmin = false;
+
+    var relatedIdeaModify = "";
+    var submitlistname = "Innovative Ideas";
+    var submitlistintname = "Innovative_x0020_Ideas";
+    var primaryinn_user_info_people = "";
+    var deporgarea_user_info_people = "";
+    var CoInnovators_user_info_people = "";
+    var submitid = "";
+    var submitviewdoclib = "Doc Innovative Ideas";
+    var submitviewdoclibiner = "Doc_x0020_Innovative_x0020_Ideas";
+    var checkcount = 0;
+    var boolOtherCategory = false;
+    var primaryinn = "";
+
+    var deporgarea = "";
+    var queryString = "";
+
+    var CoInnovators = "";
+    var value = true;
+    var innovationConsultant_Info =[];
+    var projectManager_Info = 0;
+    var groupnamehtml = ["System Administrators", "Member Admin", "Project Admin", "Team Member"];
+    var cal_score1 = 0;
+    var cal_score2 = 0;
+    var cal_score3 = 0;
+    var cal_score4 = 0;
+    var cal_score5 = 0;
+    var dueDiligenceCompletionDate = null;
+    var dueDiligenceStatus = "Completed";
+    var tbodycount = "";
+    var AssignDate = null;
+    var BoardDate = null;
+    var currentstage = "";
+    var dueDiligenceDescription = "";
+    var proposedDecision = "";
+    var proposedDecisionReason = "";
+    var workflowTrigger = false;
+    var workflowStage = "";
+    var workflowStep = "Select";
+    var ideaCategory = "";
+    var averageIdeaScore = (cal_score1 + cal_score2 + cal_score3 + cal_score4 + cal_score5) / 5;
+    //Page Load Starts
+    jQuery(document).ready(function () {
+        LoadAllDropdown();
+
+        $('#otherDeptarment').hide();
+
+        $('#bntclearsubview').hide();
+
+        initializePeoplePicker('assignedTo');
+
+        queryString = $.getUrlVar('srcid');
+
+        LoadAllTasks(queryString);
+
+        if ($("#score1 option:selected").text() == "Select") {
+            cal_score1 = "0";
+        }
+        if ($("#score2 option:selected").text() == "Select") {
+            cal_score2 = "0";
+        }
+        if ($("#score3 option:selected").text() == "Select") {
+            cal_score3 = "0";
+        }
+        if ($("#score4 option:selected").text() == "Select") {
+            cal_score4 = "0";
+        }
+        if ($("#score5 option:selected").text() == "Select") {
+            cal_score5 = "0";
+        }
+
+        initializePeoplePicker('innovConsultant');
+        setTimeout(function () { initializePeoplePicker('prjManager'); }, 200);
+
+        // Task Assign
+        $('#submitTask').click(function () {
+
+            //  alert('start doing');
+            var currentItemID = queryString;
+            CreateNewTask(currentItemID);
+
+
+        });
+        $('#txtideacategory').change(function () {
+            var selectedValue = $("#txtideacategory option:selected").text();
+            if (selectedValue == 'Other: Please specify') {
+                boolOtherCategory = true;
+                $('#otherDeptarment').show();
+            }
+            else {
+                $('#otherDeptarment').hide();
+            }
+        });
+        $('#btnDeleteItem').click(function () {
+
+            var deleteItemCollection = [];
+            $.each($("input[name='tasksItem']:checked"), function () {
+                deleteItemCollection.push($(this).val());
+            });
+
+            for (var i = 0; i < deleteItemCollection.length; i++) {
+
+                DeleteTask(deleteItemCollection[i]);
+            }
+            alert("Item Deleted");
+            LoadAllTasks(queryString);
+        });
+
+        $('#btnNewItem').click(function () {
+
+            $('#submitTask').show();
+            $('#updateTask').hide();
+           // $('#task_status_updateDiv').hide();
+            $('#txtTaskName').val('');
+            $('#txtTaskDetails').val('');
+            //  $('#endDatePicker').val('');
+            Task_DueDate();
+            $('#startDatePicker').val('');
+            $('#assignedTo').val('');
+            $('#toggleModelHeading').html('Create A New Task');
+            initializePeoplePicker('assignedTo');
+        });
+        $('#btnEditItem').click(function () {
+
+
+
+
+            $('#submitTask').hide();
+            $('#updateTask').show();
+            $('#task_status_updateDiv').show();
+            $('#txtTaskName').val('');
+            $('#txtTaskDetails').val('');
+            // $('#endDatePicker').val('');
+            $('#StartDatePicker').val('');
+            $('#toggleModelHeading').html('Update A Task');
+
+
+
+            $('#tableTaskAssignment').find('tr').each(function () {
+                var row = $(this);
+                if (row.find('input[type="checkbox"]').is(':checked')) {
+                    initializePeoplePicker('assignedTo');
+                    var populate_taskName = $(this).find("td:nth-child(2)").html();
+                    var populate_startDate = "";
+                    if ($(this).find("td:nth-child(4)").html() != "") {
+                        populate_startDate = $(this).find("td:nth-child(4)").html();
+                    }
+                    var populate_dueDate = $(this).find("td:nth-child(5)").html();
+
+                    var populate_assignedTo = $(this).find("td:nth-child(3)").html();
+                    var populate_Status = $(this).find("td:nth-child(6)").html();
+                    var populate_Description = $(this).find("td:nth-child(7)").html();
+                    alert(populate_dueDate);
+                    Task_DueDate();
+
+                    // var getvalue = $(this).parent().parent().first().text(); alert(getvalue);
+                    $('#txtTaskName').val(populate_taskName);
+                    $('#startDatePicker').val(populate_startDate);
+                    $('#txtTaskDetails').val(populate_Description);
+                    $('#endDatePicker').val(populate_dueDate);
+                    $('#taskStatus').val(populate_Status);
+
+                    insertUserInPeoplePicker(populate_assignedTo, 'assignedTo');
+
+                    // $('#endDatePicker').val($(this).parent().parent().first().text());
+                    //  $('#txtTaskName').val($(this).parent().text());
+                }
+            });
+        });
+
+        $('#updateTask').click(function () {
+            var updateItemCollection = [];
+            $.each($("input[name='tasksItem']:checked"), function () {
+                updateItemCollection.push($(this).val());
+            });
+
+            for (var i = 0; i < updateItemCollection.length; i++) {
+                UpdateTask(updateItemCollection[i]);
+            }
+            LoadAllTasks(queryString);
+            $('#submitTask').show();
+            $('#updateTask').hide();
+            $('#txtTaskName').val('');
+            Task_DueDate();
+            // $('#endDatePicker').val('');
+            $('#StartDatePicker').val('');
+            $('#assignedTo').val('');
+            $('#txtTaskDetails').val('');
+
+            initializePeoplePicker('assignedTo');
+        });
+
+        $('#btnsavedoc').css("display", "none");
+        $("#bntsubmitview").click(function () {
+
+            Postsubmitview();
+
+
+
+        });
+
+        $("#btnsavedoc").click(function () {
+
+            PostSaveview();
+
+
+
+        });
+
+        $('#score1').change(function () {
+
+            if ($("#score1 option:selected").text() == "Select") {
+                cal_score1 = "0";
+            }
+            else {
+                cal_score1 = $("#score1 option:selected").text();
+            }
+            averageIdeaScore = (parseInt(cal_score1) + parseInt(cal_score2) + parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+            $('.scoreIdea').html(averageIdeaScore);
+            $('#avgscore1').val((parseInt(cal_score1) + parseInt(cal_score2)));
+
+            // alert(averageIdeaScore);
+        });
+        $('#score2').change(function () {
+
+            if ($("#score2 option:selected").text() == "Select") {
+                cal_score2 = "0";
+            }
+            else {
+                cal_score2 = $("#score2 option:selected").text();
+            }
+
+            averageIdeaScore = (parseInt(cal_score1) + parseInt(cal_score2) + parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+            $('.scoreIdea').html(averageIdeaScore);
+            $('#avgscore1').val((parseInt(cal_score1) + parseInt(cal_score2)));
+            //alert(averageIdeaScore);
+        });
+        $('#score3').change(function () {
+            if ($("#score3 option:selected").text() == "Select") {
+                cal_score3 = "0";
+            }
+            else {
+                cal_score3 = $("#score3 option:selected").text();
+
+            }
+
+            averageIdeaScore = (parseInt(cal_score1) + parseInt(cal_score2) + parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+            $('.scoreIdea').html(averageIdeaScore);
+            $('#avgscore2').val(parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+            //alert(averageIdeaScore);
+        });
+        $('#score4').change(function () {
+
+            if ($("#score4 option:selected").text() == "Select") {
+                cal_score4 = "0";
+            }
+            else {
+                cal_score4 = $("#score4 option:selected").text();
+
+            }
+
+            averageIdeaScore = (parseInt(cal_score1) + parseInt(cal_score2) + parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+            $('.scoreIdea').html(averageIdeaScore);
+            $('#avgscore2').val(parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+            //alert(averageIdeaScore);
+        });
+        $('#score5').change(function () {
+
+            if ($("#score5 option:selected").text() == "Select") {
+                cal_score5 = "0";
+            }
+            else {
+                cal_score5 = $("#score5 option:selected").text();
+
+            }
+
+            averageIdeaScore = (parseInt(cal_score1) + parseInt(cal_score2) + parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+            $('.scoreIdea').html(averageIdeaScore);
+            $('#avgscore2').val(parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+            //alert(averageIdeaScore);
+        });
+
+        if (queryString != undefined) {
+            $('#btnsavedoc').css("display", "block");
+            //GetIdeasdetails(queryString);
+            Getduediligencedetails();
+
+            makeReadOnly();
+
+            Getuploaddocdetails(queryString);
+            //var doccount = $('#subdoctable >tbody >tr').length;
+            //if (doccount == 0) {
+            //    $("#docsubmitbody").html("<tr><td colspan='4'>To add document click 'Add' button</td></tr>");
+            //}
+            $('.deletedoc').click(function () {
+                var deletecheckbox = '';
+                tbodycount = $('#subdoctable >tbody >tr').length;
+                if (tbodycount > 0) {
+                    for (var k = 0 ; k < tbodycount ; k++) {
+                        if ($("#submitcheck" + k).not(':checked').length) {
+                            //alert("Not");
+                        }
+                        else {
+                            var itemid = $("#submitlabel" + k).html();
+                            //alert(itemid);
+                            ComDeleteFile(itemid, submitviewdoclib);
+
+                        }
+                    }
+                    Getuploaddocdetails(queryString);
+                    //var doccount = $('#subdoctable >tbody >tr').length;
+                    //if (doccount == 0) {
+                    //    $("#docsubmitbody").html("<tr><td colspan='4'>To add document click 'Add' button</td></tr>");
+                    //}
+                }
+            });
+
+
+            $("#bntaddfile").click(function () {
+                $("#attachmentpopup").modal('show');
+                $("#txtdoctitle").val('');
+                $("#inputFile").val('');
+            });
+
+            $(".newdocupload").click(function () {
+
+                inputfilevalue = "inputFile";
+                ipitemtitle = $("#txtdoctitle").val();
+                ipitemid = queryString;
+                Comuploaddocumentlibrary(inputfilevalue, submitviewdoclib, submitviewdoclibiner, ipitemtitle, ipitemid);
+                setTimeout(function () { Getuploaddocdetails(queryString); }, 200);
+                $("#attachmentpopup").modal('hide');
+            });
+
+            WorkflowNavigation();
+
+
+        }
+
+        //     setTimeout(function () { initializePeoplePicker('CoInnovators'); }, 300);
+
+    });
+    //Page Load Ends
+
+    // workflow Navigation
+
+    function WorkflowNavigation() {
+
+        var submitView = _spPageContextInfo.webAbsoluteUrl + "/Pages/Stage-Submitted.aspx?srcid=" + queryString;
+        var dueDiligenceView = _spPageContextInfo.webAbsoluteUrl + "/Pages/stage-DueDiligence.aspx?srcid=" + queryString;
+        var boardofDirectorsView = _spPageContextInfo.webAbsoluteUrl + "/Pages/stage-BoardOfDirectors.aspx?srcid=" + queryString;
+        var KPHCReviewView = _spPageContextInfo.webAbsoluteUrl + "/Pages/stage-BoardOfDirectors.aspx?srcid=" + queryString;
+        var implementationView = _spPageContextInfo.webAbsoluteUrl + "/Pages/stage-Implementations.aspx?srcid=" + queryString;
+        var closeOutView = _spPageContextInfo.webAbsoluteUrl + "/Pages/stage-ClosedIdea.aspx?srcid=" + queryString;
+        $('#stageSubmit').attr('href', submitView);
+        $('#stageDue').attr('href', dueDiligenceView);
+        $('#stageBoard').attr('href', boardofDirectorsView);
+        $('#stageKHPC').attr('href', KPHCReviewView);
+        $('#stageImplementation').attr('href', implementationView);
+        $('#stageClose').attr('href', closeOutView);
+
+
+    }
+
+
+
+
+    // Render and initialize the client-side People Picker.
+    function initializePeoplePicker(peoplePickerElementId) {
+
+        // Create a schema to store picker properties, and set the properties.
+        var schema = {};
+        schema['PrincipalAccountType'] = 'User,DL,SecGroup,SPGroup';
+        schema['SearchPrincipalSource'] = 15;
+        schema['ResolvePrincipalSource'] = 15;
+        schema['AllowMultipleValues'] = true;
+        schema['MaximumEntitySuggestions'] = 50;
+        schema['Width'] = '100%';
+        schema['ReadOnly'] = true;
+
+        // Render and initialize the picker.
+        // Pass the ID of the DOM element that contains the picker, an array of initial
+        // PickerEntity objects to set the picker value, and a schema that defines
+        // picker properties.
+        this.SPClientPeoplePicker_InitStandaloneControlWrapper(peoplePickerElementId, null, schema);
+
+    }
+
+    // Query the picker for user information.
+    function getUserInfo(peoplePickerDiv) {
+        // Get the people picker object from the page.
+        var people = peoplePickerDiv + "_TopSpan";
+        var peoplePicker = this.SPClientPeoplePicker.SPClientPeoplePickerDict[people];
+        // Get user keys.
+        var keys = peoplePicker.GetAllUserKeys();
+        GetUserId(keys, peoplePickerDiv);
+    }
+
+    //View Due Diligence starts
+    function Getduediligencedetails() {
+        var url = _spPageContextInfo.webAbsoluteUrl + "/_api/Web/Lists/GetByTitle('" + submitlistname + "')/items(" + queryString + ")";
+        jQuery.ajax({
+            url: url,
+            method: "GET",
+            async: false,
+            headers: { "Accept": "application/json; odata=verbose" },
+            success: function (data) {
+                //console.log(data.d);
+                if (data.d) {
+                    $('#currentstage').val(data.d.Current_x0020_Stage);
+
+                    if (data.d.Related_x0020_Idea != null) {
+                        $("#relatedIdea").val($(data.d.Related_x0020_Idea).text());
+                    }
+
+                    var exists = false;
+                    $('#txtideacategory option').each(function () {
+                        if (this.text == data.d.Idea_x0020_Category) {
+                            exists = true;
+                            $('#txtideacategory').val(data.d.Idea_x0020_Category);
+                            return false;
+                        }
+                    });
+                    if (!exists) {
+                        $("#txtideacategory").append('<option>' + data.d.Idea_x0020_Category + '</option>');
+                        $("#txtideacategory").val(data.d.Idea_x0020_Category);
+                    }
+
+                    //if (data.d.Idea_x0020_Category == null) {
+                    //    $('#txtideacategory').val("Select");
+                    //}
+                    //else {
+                    //    $('#txtideacategory').val(data.d.Idea_x0020_Category);
+                    //}
+                    if (data.d.Step_x0020_2_x003a__x0020_Due_x0Id != null) {
+                        for (var i = 0; i < data.d.Step_x0020_2_x003a__x0020_Due_x0Id.results.length ; i++) {
+                            getUserName(data.d.Step_x0020_2_x003a__x0020_Due_x0Id.results[i], "innovConsultant");
+                        }
+                    }
+
+                    // $("#datesubmitted").val(DateFunction(data.d.Submit_x0020_Date));
+                    // $('#datesubmitted').attr('readonly', true);
+                    // if (data.d.Due_x0020_Diligence_x0020_Date != null) {
+                    //     $("#txtAssignDate").val(DateFunction(data.d.Due_x0020_Diligence_x0020_Date));
+                    //     var AssignDate = DateFunction(data.d.Due_x0020_Diligence_x0020_Date);
+                    //     var d = new Date(AssignDate);
+                    //     d.setDate(d.getDate() + 24);
+
+                    //     var dd = new Date(d);
+                    //     dd.setDate(dd.getDate() + 42);
+                    //     var dcurr = d.getMonth() + 1;
+                    //     var ddcurr = dd.getMonth() + 1;
+                    //     var tempstart = d.getFullYear() + "-" + dcurr + "-" + d.getDate();
+                    //     var tempend = dd.getFullYear() + "-" + ddcurr + "-" + dd.getDate();
+                    //     Getboardmeetingsdetails(tempstart, tempend);
+                    // }
+                    // else {
+                    //     $("#txtAssignDate").val('');
+                    // }
+
+                    //$("#txtBoardDate").val(DateFunction(data.d.Board_x0020_Presentation_x0020_D));
+                    $("#descriptionduediligence").val($(data.d.Other_x0020_significant_x0020_fa).text());
+                    $("#proposeddecision").val(data.d.Proposed_x0020_Decision);
+                    $("#proposedreason").val($(data.d.Proposed_x0020_Decision_x0020_Re).text());
+                    task_PrimaryInnovator_Idea = data.d.Primary_x0020_InnovatorId != null ? data.d.Primary_x0020_InnovatorId : "";
+                    task_CoInnovator_Idea = data.d.Co_x002d_InnovatorsId != null ? data.d.Co_x002d_InnovatorsId.results[0] : 0;
+                    task_IdeaName = data.d.Title;
+                    task_Description = data.d.Succinct_x0020_Description;
+                    if (data.d.Value_x0020_Criteria_x0020__x002 != null) {
+                        $('#score1').val(data.d.Value_x0020_Criteria_x0020__x002);
+                        cal_score1 = data.d.Value_x0020_Criteria_x0020__x002;
+                    }
+                    else {
+                        $('#score1').val("Select");
+                    }
+                    if (data.d.Value_x0020_Criteria_x0020__x0020 != null) {
+                        $('#score2').val(data.d.Value_x0020_Criteria_x0020__x0020);
+                        cal_score2 = data.d.Value_x0020_Criteria_x0020__x0020;
+                    }
+                    else {
+                        $('#score2').val("Select");
+                    }
+                    if (data.d.Feasibility_x0020_Criteria_x0020 != null) {
+                        $('#score3').val(data.d.Feasibility_x0020_Criteria_x0020);
+                        cal_score3 = data.d.Feasibility_x0020_Criteria_x0020;
+                    }
+                    else {
+                        $('#score3').val("Select");
+                    }
+                    if (data.d.Feasibility_x0020_Criteria_x00200 != null) {
+                        $('#score4').val(data.d.Feasibility_x0020_Criteria_x00200);
+                        cal_score4 = data.d.Feasibility_x0020_Criteria_x00200;
+                    }
+                    else {
+                        $('#score4').val("Select");
+                    }
+                    if (data.d.Feasibility_x0020_Criteria_x00201 != null) {
+                        $('#score5').val(data.d.Feasibility_x0020_Criteria_x00201);
+                        cal_score5 = data.d.Feasibility_x0020_Criteria_x00201;
+                    }
+                    else {
+                        $('#score5').val("Select");
+                    }
+                    if (data.d.Idea_x0020_Score != null) {
+                        $('.scoreIdea').text(data.d.Idea_x0020_Score);
+                    }
+                    if (data.d.Title != null) {
+                        $("#txtIdeaName").val(data.d.Title);
+                    }
+                    $('#avgscore1').val(parseInt(cal_score1) + parseInt(cal_score2));
+                    $('#avgscore2').val(parseInt(cal_score3) + parseInt(cal_score4) + parseInt(cal_score5));
+                    averageIdeaScore = data.d.Idea_x0020_Score;
+                    if (data.d.Step_x0020_2_x003a__x0020_Due_x00Id != null) {
+                        setTimeout(function () { getUserName(data.d.Step_x0020_2_x003a__x0020_Due_x00Id, "prjManager"); }, 200);
+                    }
+
+                    // if (data.d.Board_x0020_Presentation_x0020_D != null) {
+                    //     setTimeout(function () { $("#boardpresentation").val(DateFunction(data.d.Board_x0020_Presentation_x0020_D)); }, 300);
+                    // }
+
+                }
+            },
+            error: function () {
+                alert("This Item does't exists");
+            }
+        });
+
+//SPServices for date pick value from list
+         $().SPServices({
+            operation: "GetListItems",
+            async: false,
+            listName: submitlistname,
+           CAMLViewFields: "<ViewFields><FieldRef Name='Board_x0020_Presentation_x0020_D'/><FieldRef Name='Submit_x0020_Date'/><FieldRef Name='Due_x0020_Diligence_x0020_Date'/></ViewFields>",
+          CAMLQuery: "<Query><Where><Eq><FieldRef Name='ID' /><Value Type='Number'>" + queryString + "</Value></Eq></Where></Query>",
+           //CAMLRowLimit: 20,
+           completefunc: function (xData, Status) {
+               var ItemCount =0;
+              // if (ItemCount > 0) {
+                   $(xData.responseXML).SPFilterNode("z:row").each(function () {
+                    if ($(this).attr("ows_Due_x0020_Diligence_x0020_Date") != undefined) {    
+                        var ADitemvalue  = ($(this).attr("ows_Due_x0020_Diligence_x0020_Date")).split(' ')[0];
+                        var ADsplitDateFormat = ADitemvalue.split('-');
+                        var ADbDate = ADsplitDateFormat[2];
+                        var ADbMonth = ADsplitDateFormat[1];
+                        var ADbYear = ADsplitDateFormat[0];                  
+                        var  AssignDate= ADbMonth + "/" + ADbDate + "/" + ADbYear;
+                         $("#txtAssignDate").val(AssignDate);
+                        var AssignDate = DateFunction(AssignDate);
+                        var d = new Date(AssignDate);
+                        d.setDate(d.getDate() + 24);
+
+                        var dd = new Date(d);
+                        dd.setDate(dd.getDate() + 42);
+                        var dcurr = d.getMonth() + 1;
+                        var ddcurr = dd.getMonth() + 1;
+                        var tempstart = d.getFullYear() + "-" + dcurr + "-" + d.getDate();
+                        var tempend = dd.getFullYear() + "-" + ddcurr + "-" + dd.getDate();
+                        Getboardmeetingsdetails(tempstart, tempend);
+                    }
+                 
+$('#datesubmitted').attr('readonly', true);
+                   if ($(this).attr("ows_Submit_x0020_Date") != undefined) {    
+                        var SDitemvalue  = ($(this).attr("ows_Submit_x0020_Date")).split(' ')[0];
+                        var SDsplitDateFormat = SDitemvalue.split('-');
+                        var SDbDate = SDsplitDateFormat[2];
+                        var SDbMonth = SDsplitDateFormat[1];
+                        var SDbYear = SDsplitDateFormat[0];                  
+                        var  submitdate= SDbMonth + "/" + SDbDate + "/" + SDbYear;
+                         $("#datesubmitted").val(submitdate);
+                    }
+                    else
+                    {
+
+                        $("#datesubmitted").val('');
+                    }
+
+
+                    if ($(this).attr("ows_Board_x0020_Presentation_x0020_D") != undefined) {                       
+                        var BDitemvalue = ($(this).attr("ows_Board_x0020_Presentation_x0020_D")).split(' ')[0];
+                        var BDsplitDateFormat = BDitemvalue.split('-');
+                        var BDbDate = BDsplitDateFormat[2];
+                        var BDbMonth = BDsplitDateFormat[1];
+                        var BDbYear = BDsplitDateFormat[0];                  
+                        var  boardpresentaiondate= BDbMonth + "/" + BDbDate + "/" + BDbYear;
+                        setTimeout(function () { $("#boardpresentation").val(boardpresentaiondate); }, 300);
+                    }
+                    else
+                    {
+                        $("#boardpresentation").val('');
+                    }
+                   
+                
+                  
+                    })
+                }
+            });
+
+
+
+
+
+
+    }
+
+
+    // Submit View Update starts
+    function Postsubmitview() {
+        currentstage = "" + $("#currentstage option:selected").text();
+        if (boolOtherCategory) {
+            ideaCategory = "" + $("#otherDeptarment").val();
+        }
+        else {
+            ideaCategory = "" + $("#txtideacategory option:selected").text();
+        }
+        dueDiligenceDescription = "" + $("#descriptionduediligence").val();
+        proposedDecision = "" + $("#proposeddecision option:selected").text();
+        relatedIdeaModify = $("#relatedIdea").val();
+        proposedDecisionReason = "" + $("#proposedreason").val();
+        if ($("#txtAssignDate").datepicker().val() != "") {
+            AssignDate = $("#txtAssignDate").datepicker().val();
+           // new Date(item.DueDate).toLocaleDateString()
+            //new Date().toISOString(),
+
+        }
+       
+        if ($("#boardpresentation option:selected").text() != "") {
+            var board = $("#boardpresentation option:selected").text();
+            $("#txtAssignDate").val(board);
+
+            BoardDate = $("#txtAssignDate").datepicker().val();
+           $("#txtAssignDate").val(AssignDate);
+        }
+       
+        workflowTrigger = false;
+        workflowStage = "";
+        getUserInfo('innovConsultant');
+        getUserInfo('prjManager');
+        //if (currentstage == "2- Due Diligence" && innovationConsultant_Info == "" && projectManager_Info == "") {
+
+        //    alert('that fields must be populated or the current stage must change in order to submit the form');
+
+        //}
+
+
+
+        //   if (currentstage == "2- Due Diligence") {
+        if (Validation()) {
+            if (currentstage == "2- Due Diligence" && (innovationConsultant_Info != "" || projectManager_Info != "")) {
+
+                workflowTrigger = true;
+                workflowStage = "Due Diligence";
+                dueDiligenceStatus = "";
+                dueDiligenceCompletionDate = null;
+                workflowStep = "DIP";
+                // UpdateListValues();
+
+
+            }
+            else if (currentstage == "3- MAPMG Board Decision" && projectManager_Info == "") {
+                workflowTrigger = false;
+                workflowStage = "Board Of Directors";
+                dueDiligenceStatus = "Completed";
+                dueDiligenceCompletionDate = new Date();
+                //  UpdateListValues();
+
+            }
+
+            UpdateListValues();
+        }
+        else {
+            alert('Please input all mandatory fields');
+        }
+
+
+        //   }
+        ////   else {
+        //     alert('Please change your current stage has 2-Due-Diligence');
+        //  }
+
+
+
+    }
+
+    function PostSaveview() {
+        workflowTrigger = false;
+        currentstage = "" + $("#currentstage option:selected").text();
+
+        if (boolOtherCategory) {
+            ideaCategory = "" + $("#otherDeptarment").val();
+        }
+        else {
+            ideaCategory = "" + $("#txtideacategory option:selected").text();
+        }
+
+        dueDiligenceDescription = "" + $("#descriptionduediligence").val();
+        proposedDecision = "" + $("#proposeddecision option:selected").text();
+        relatedIdeaModify = $("#relatedIdea").val();
+        proposedDecisionReason = "" + $("#proposedreason").val();
+        if ($("#txtAssignDate").datepicker().val() != "") {
+            AssignDate = $("#txtAssignDate").datepicker().val();
+        }
+
+        if ($("#boardpresentation option:selected").text() != "") {
+            var board = $("#boardpresentation option:selected").text();
+            $("#txtAssignDate").val(board);
+
+            BoardDate = $("#txtAssignDate").datepicker().val();
+            $("#txtAssignDate").val(AssignDate);
+        }
+        workflowTrigger = false;
+        workflowStage = "";
+        getUserInfo('innovConsultant');
+        getUserInfo('prjManager');
+        //if (currentstage == "2- Due Diligence" && innovationConsultant_Info == "" && projectManager_Info == "") {
+
+        //    alert('that fields must be populated or the current stage must change in order to submit the form');
+
+        //}
+
+
+
+        //   if (currentstage == "2- Due Diligence") {
+        if (Validation()) {
+            if (currentstage == "2- Due Diligence" && innovationConsultant_Info != "" && projectManager_Info != "") {
+
+                workflowTrigger = false;
+                workflowStage = "Due Diligence";
+                dueDiligenceStatus = "";
+                dueDiligenceCompletionDate = null;
+                workflowStep = "DIP";
+                // UpdateListValues();
+
+
+            }
+            else if (currentstage == "3- MAPMG Board Decision" && projectManager_Info == "") {
+                workflowTrigger = false;
+                workflowStage = "Board Of Directors";
+                dueDiligenceStatus = "Completed";
+                dueDiligenceCompletionDate = new Date();
+                //  UpdateListValues();
+
+            }
+
+            UpdateSaveListValues();
+        }
+        else {
+            alert('Please input all mandatory fields');
+        }
+
+
+        //   }
+        ////   else {
+        //     alert('Please change your current stage has 2-Due-Diligence');
+        //  }
+
+
+
+    }
+
+    function UpdateListValues() {
+        var ideascore = parseInt(averageIdeaScore);
+
+
+
+        $.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('" + submitlistname + "')/items(" + queryString + ")",
+            type: "POST",
+            async: false,
+            data: JSON.stringify({
+                '__metadata': { 'type': 'SP.Data.Innovative_x0020_IdeasListItem' },
+                'Current_x0020_Stage': currentstage,
+                'Value_x0020_Criteria_x0020__x002': cal_score1,
+                'Value_x0020_Criteria_x0020__x0020': cal_score2,
+                'Related_x0020_Idea': relatedIdeaModify,
+                'Feasibility_x0020_Criteria_x0020': cal_score3,
+                'Feasibility_x0020_Criteria_x00200': cal_score4,
+                'Feasibility_x0020_Criteria_x00201': cal_score5,
+                'Idea_x0020_Score': ideascore,
+                'Step_x0020_2_x003a__x0020_Due_x0Id': {
+                    results: innovationConsultant_Info // construct a array of user Id from selected users or groups
+                },
+                'Step_x0020_2_x003a__x0020_Due_x00Id': projectManager_Info,
+                'Workflow_x0020_Stage': workflowStage,
+                'Workflow_x0020_Trigger': workflowTrigger,
+                'Status': dueDiligenceStatus,
+                'Proposed_x0020_Decision': proposedDecision,
+                'Proposed_x0020_Decision_x0020_Re': proposedDecisionReason,
+                'Other_x0020_significant_x0020_fa': dueDiligenceDescription,
+                'Board_x0020_Presentation_x0020_D': BoardDate,
+                'Due_x0020_Diligence_x0020_Date': AssignDate,
+                'Completion_x0020_Date0': dueDiligenceCompletionDate,
+                'Workflow_x0020_Step': workflowStep,
+                'Idea_x0020_Category': ideaCategory
+
+
+            }),
+            headers: {
+                "accept": "application/json;odata=verbose",
+                "content-type": "application/json;odata=verbose",
+                "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+                "X-HTTP-Method": "MERGE",
+                "If-Match": "*"
+            },
+            success: function (data) {
+                //  alert("Items Updated Successfully");
+                $('.due_digilence').html("Your Idea details have been submitted successfully.");
+            },
+            error: function (err) {
+                alert("error" + JSON.stringify(err));
+                console.log("error" + JSON.stringify(err));
+            }
+        });
+
+    }
+
+    function UpdateSaveListValues() {
+        var ideascore = parseInt(averageIdeaScore);
+        $.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('" + submitlistname + "')/items(" + queryString + ")",
+            type: "POST",
+            async: false,
+            data: JSON.stringify({
+                '__metadata': { 'type': 'SP.Data.Innovative_x0020_IdeasListItem' },
+                'Current_x0020_Stage': currentstage,
+                'Related_x0020_Idea': relatedIdeaModify,
+                'Value_x0020_Criteria_x0020__x002': cal_score1,
+                'Value_x0020_Criteria_x0020__x0020': cal_score2,
+                'Feasibility_x0020_Criteria_x0020': cal_score3,
+                'Feasibility_x0020_Criteria_x00200': cal_score4,
+                'Feasibility_x0020_Criteria_x00201': cal_score5,
+                'Idea_x0020_Score': ideascore,
+                'Step_x0020_2_x003a__x0020_Due_x0Id': {
+                    results: innovationConsultant_Info // construct a array of user Id from selected users or groups
+                },
+                'Step_x0020_2_x003a__x0020_Due_x00Id': projectManager_Info,
+                'Workflow_x0020_Stage': workflowStage,
+                'Workflow_x0020_Trigger': workflowTrigger,
+                'Status': dueDiligenceStatus,
+                'Proposed_x0020_Decision': proposedDecision,
+                'Proposed_x0020_Decision_x0020_Re': proposedDecisionReason,
+                'Other_x0020_significant_x0020_fa': dueDiligenceDescription,
+                'Board_x0020_Presentation_x0020_D': BoardDate,
+                'Due_x0020_Diligence_x0020_Date': AssignDate,
+                'Completion_x0020_Date0': dueDiligenceCompletionDate,
+                'Workflow_x0020_Step': workflowStep,
+                'Idea_x0020_Category': ideaCategory
+
+
+            }),
+            headers: {
+                "accept": "application/json;odata=verbose",
+                "content-type": "application/json;odata=verbose",
+                "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+                "X-HTTP-Method": "MERGE",
+                "If-Match": "*"
+            },
+            success: function (data) {
+                //  alert("Items Updated Successfully");
+                $('#StatusSave').html("");
+                $('#StatusSave').html("Your modifications have been saved");
+            },
+            error: function (err) {
+                alert("error" + JSON.stringify(err));
+                console.log("error" + JSON.stringify(err));
+            }
+        });
+
+    }
+
+    //Submit View Update Ends
+
+    // Submit view user info starts
+    function GetUserId(userName, itemname) {
+        var user = userName.split(';');
+        for (var i = 0; i < user.length; i++) {
+            var siteUrl = _spPageContextInfo.siteAbsoluteUrl;
+            var accountName = user[i];
+            $.ajax({
+                url: siteUrl + "/_api/web/siteusers(@v)?@v='" +
+                    encodeURIComponent(accountName) + "'",
+                method: "GET",
+                async: false,
+                headers: { "Accept": "application/json; odata=verbose" },
+                success: function (data) {
+                    ///popup user id received from site users.
+                    if (itemname == "innovConsultant") {
+                        if (data.d.Id != null) {
+
+                            var value = "" + data.d.Id;
+                            innovationConsultant_Info.push(value);
+                        }
+                    }
+                    if (itemname == "prjManager") {
+                        if (data.d.Id != null) {
+                            projectManager_Info = data.d.Id;
+                        }
+                    }
+                    if (itemname == "assignedTo") {
+                        if (data.d.Id != null) {
+                            var value = "" + data.d.Id;
+                            assignToPerson.push(value);
+                        }
+                    }
+                },
+                error: function (data) {
+                    console.log(JSON.stringify(data));
+                }
+
+            });
+        }
+    }
+
+    // Set ReadOnly fields
+
+    function ReadOnlyDatePicker(value) {
+
+        if (!IsSystemAdmin) {
+            $('#bntsubmitview').hide();
+        }
+        if (!value) {
+
+            $('#currentstage').attr("disabled", true);
+            $("#innovConsultant .sp-peoplepicker-editorInput, #innovConsultant .sp-peoplepicker-delImage").css('display', 'none');
+            setTimeout(function () { $("#prjManager .sp-peoplepicker-editorInput, #prjManager .sp-peoplepicker-delImage").css('display', 'none'); }, 200);
+            setTimeout(function () { $("#boardpresentation").attr('disabled', true); }, 300);
+            $('#txtAssignDate').attr('readonly', true);
+            //    $('#txtideacategory').attr('readonly', true);
+            $('#txtideacategory').attr('disabled', true);
+            $('#relatedIdea').attr('readonly', true);
+            $('#score1').attr('disabled', true);
+            $('#score2').attr('disabled', true);
+            $('#score3').attr('disabled', true);
+            $('#score4').attr('disabled', true);
+            $('#score5').attr('disabled', true);
+            $('#avgscore1').attr('readonly', true);
+            $('#avgscore2').attr('readonly', true);
+            $(".scoreIdea").attr('readonly', true);
+            $("#proposeddecision").attr('disabled', true);
+            $('#descriptionduediligence').attr('readonly', true);
+            $("#proposedreason").attr('readonly', true);
+            $('input[id$="txtAssignDate"]').attr('disabled', true);
+            $('input[id$="txtBoardDate"]').attr('disabled', true);
+            //  $('#bntsubmitview').hide();
+            $('#txtIdeaName').attr("readonly", true);
+            $('#btnsavedoc').hide();
+            $('#ActionItems').hide();
+            $(".savebtnalign li:nth-child(2)").css("vertical-align", "bottom");
+          
+        }
+        else if (value) {
+
+            $('#currentstage').attr('disabled', false);
+            $('#relatedIdea').attr('readonly', false);
+            $("#innovConsultant .sp-peoplepicker-editorInput, #innovConsultant .sp-peoplepicker-delImage").css('display', 'initial');
+            setTimeout(function () { $("#prjManager .sp-peoplepicker-editorInput, #prjManager .sp-peoplepicker-delImage").css('display', 'initial'); }, 200);
+            setTimeout(function () { $("#boardpresentation").attr('disabled', false); }, 300);
+            $('#txtAssignDate').attr('readonly', false);
+            $('#txtideacategory').attr('disabled', false);
+            $('#txtBoardDate').attr('readonly', false);
+            $('#score1').attr('disabled', false);
+            $('#score2').attr('disabled', false);
+            $('#score3').attr('disabled', false);
+            $('#score4').attr('disabled', false);
+            $('#score5').attr('disabled', false);
+            $('#avgscore1').attr('readonly', false);
+            $('#avgscore2').attr('readonly', false);
+            $(".scoreIdea").attr('readonly', false);
+            $("#proposeddecision").attr('disabled', false);
+            $('#descriptionduediligence').attr('readonly', false);
+            $("#proposedreason").attr('readonly', false);
+            $('#txtIdeaName').attr("readonly", false);
+            $(".savebtnalign li:nth-child(1), .savebtnalign li:nth-child(2)").css("vertical-align", "bottom");
+        }
+    }
+
+    // get idea details
+
+
+
+    // Get user details
+
+    function insertUserInPeoplePicker(userName, peoplePickerDiv) {
+        var people = peoplePickerDiv + "_TopSpan";
+        var peoplePicker = this.SPClientPeoplePicker.SPClientPeoplePickerDict[people];
+        peoplePicker.AddUserKeys(userName);
+    }
+    function getUserName(id, peoplePickerDiv) {
+        var returnValue;
+        jQuery.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/Web/GetUserById(" + id + ")",
+            type: "GET",
+            async: false,
+            headers: { "Accept": "application/json;odata=verbose" },
+            success: function (data) {
+                var loginName = data.d.LoginName;
+                insertUserInPeoplePicker(loginName, peoplePickerDiv);
+                for (var i = 0 ; i < groupnamehtml.length; i++) {
+                    if (value) {
+                        isMember(groupnamehtml[i]);
+                    }
+                }
+            }
+        });
+    }
+
+    //User Permission starts
+
+    function makeReadOnly() {
+        var setBoolUserExist = false;
+        for (var i = 0 ; i < groupnamehtml.length; i++) {
+            var boolUserExist = false;
+            boolUserExist = isMember(groupnamehtml[i]);
+            if (boolUserExist) {
+                setBoolUserExist = true;
+
+                break;
+            }
+        }
+        ReadOnlyDatePicker(setBoolUserExist);
+    }
+    //User Permission starts
+
+    function isMember(groupName) {
+
+        var isUserExists = false;
+        // alert(groupName);
+        $().SPServices({
+            operation: "GetGroupCollectionFromUser",
+            userLoginName: $().SPServices.SPGetCurrentUser(),
+            async: false,
+            completefunc: function (xData, Status) {
+                if ($(xData.responseXML).find("Group[Name='" + groupName + "']").length == 1) {
+                    if (groupName == "System Administrators") {
+                        IsSystemAdmin = true;
+                    }
+                    isUserExists = true;
+                }
+
+            }
+        });
+        return isUserExists;
+    }
+
+    //User Permission Ends
+
+    // Upload Documents
+
+    function Getuploaddocdetails(srcid) {
+        var docitemcount = 0;
+        $("#subdoctable").html(" ");
+        docdetailshtml = "";
+        var attachementhtml = "";
+        var url = _spPageContextInfo.webAbsoluteUrl + "/_api/Web/Lists/GetByTitle('" + submitviewdoclib + "')/items?$select=Title,Created,IdeaId,FileLeafRef,ID&$filter=IdeaId eq '" + srcid + "'";
+        jQuery.ajax({
+            url: url,
+            method: "GET",
+            async: false,
+            headers: { "Accept": "application/json; odata=verbose" },
+            success: function (data) {
+                // console.log(data.d);
+                if (data.d.results) {
+                    if (data.d.results.length > 0) {
+                        attachementhtml += '<thead>';
+                        attachementhtml += ' <tr>';
+                        attachementhtml += ' <th></th>';
+                        attachementhtml += ' <th>Document Title</th>';
+                        attachementhtml += '<th>Document Name</th>';
+                        attachementhtml += '<th>Date</th>';
+                        attachementhtml += ' </tr>';
+                        attachementhtml += ' </thead>';
+                        attachementhtml += ' <tbody id="docsubmitbody">';
+
+                        for (var i = 0; i < data.d.results.length; i++) {
+                            var title = data.d.results[i].Title == null ? "" : data.d.results[i].Title;
+                            //  console.log(data.d.results.ID + " " + data.d.results.Title + " " + data.d.results.FileLeafRef + " " + data.d.results.Created);
+                            //<input id='inputFile" + checkcount + "' type='file'>
+                            //$("#docsubmitbody").append("<tr><td id='viewitemid" + docitemcount + "' style='display:none'>" + data.d.results[i].ID + "</td><td> <input id='submitcheck" + docitemcount + "' type='checkbox' name='one'/></td><td><input type='text' id='txtdoctitle" + docitemcount + "' value='" + title + "' /></td><td><input type='text' value='" + data.d.results[i].FileLeafRef.split('.')[0] + "' id='inputFile" + docitemcount + "' /></td><td><input type='text' class='form-control' id='datetimepicker" + docitemcount + "' value='" + DateFunction(data.d.results[i].Created) + "' /></td></tr>");
+
+                            attachementhtml += '<tr>';
+                            attachementhtml += '<td><input id="submitcheck' + docitemcount + '" type="checkbox" name="one"/><label style="display:none" id="submitlabel' + docitemcount + '">' + data.d.results[i].ID + '</label></td>';
+                            attachementhtml += '<td>' + title + '</td>';
+                            attachementhtml += '<td>' + data.d.results[i].FileLeafRef.split('.')[0] + '</td>';
+                            attachementhtml += '<td>' + DateFunction(data.d.results[i].Created) + '</td>';
+                            attachementhtml += '</tr>';
+
+
+                            docitemcount++;
+                        }
+                        attachementhtml += '</tbody>';
+                    }
+                    else {
+                        $('#subdoctable').parents().removeClass("table-responsive");
+                        $('#subdoctable').parents().addClass("table-normal");
+                    }
+                    $("#subdoctable").html(attachementhtml);
+                }
+
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+    // Date Format
+
+    function DateFunction(datevalue) {
+        //var date = new Date(datevalue);
+        //var date_details = (date.getMonth() + 1) + '/' + (date.getUTCDate()) + '/' + date.getFullYear();
+
+        var date = new Date(datevalue);
+        var date_details = (date.getUTCMonth() + 1) + '/' + (date.getUTCDate()) + '/' + date.getUTCFullYear();
+        return date_details;
+    }
+
+
+
+    // All Task Items
+    //Important
+    function LoadAllTasks(getItems_ID) {
+
+
+
+        var taskName = "";
+        var startDate = "";
+        var endDate = "";
+        var assignedTo = "";
+        var taskAssignHtml = "";
+
+        $.ajax({
+            //?$select=Title,ID,AverageRating,Vote,RatingCount,VoteUserID,Primary_x0020_Innovator/Id,Primary_x0020_Innovator/Title&$expand=Primary_x0020_Innovator&$orderby=Created%20desc&$top=20",
+
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('Innovative Ideas Tasks')/Items?$select=Title,ID,Body,StartDate,DueDate,Status,AssignedTo/Id,AssignedTo/Title&$expand=AssignedTo&$filter=IdeaID eq '" + getItems_ID + "'",
+            type: "GET",
+            headers: { "accept": "application/json;odata=verbose" },
+            async: false,
+            success: function (data) {
+
+                if (data.d.results) {
+
+
+
+
+                    if (data.d.results.length > 0) {
+
+                        taskAssignHtml += '               <thead>';
+                        taskAssignHtml += '                     <tr>';
+                        taskAssignHtml += '                         <th></th>                                                      ';
+                        taskAssignHtml += '                         <th>Task Name</th>                                             ';
+                        taskAssignHtml += '                         <th>Assigned To</th>                                           ';
+                        taskAssignHtml += '                         <th style="display:none;">Start Date</th>                                           ';
+                        taskAssignHtml += '                         <th>Due Date</th>                                              ';
+                        taskAssignHtml += '                         <th>Status</th>                                                ';
+                        taskAssignHtml += '                         <th style="display:none;">Description</th>                                                ';
+                        taskAssignHtml += '                     </tr>                                                              ';
+                        taskAssignHtml += '                 </thead>                                                               ';
+                        taskAssignHtml += '                 <tbody >                                                               ';
+                        for (var i = 0; i < data.d.results.length; i++) {
+
+                            var results_AssignedToPerson = data.d.results[i].AssignedTo.results != undefined ? data.d.results[i].AssignedTo.results[0].Title : "";
+                            var title = data.d.results[i].Title != null ? data.d.results[i].Title : "";
+                            var description = data.d.results[i].Body != null ? data.d.results[i].Body : "";
+
+                            taskAssignHtml += '                     <tr>                                                               ';
+                            taskAssignHtml += '                         <td>                                                           ';
+                            taskAssignHtml += '                         <input type="checkbox" name="tasksItem" value="' + data.d.results[i].ID + '"/></td>                    ';
+                            taskAssignHtml += '                         <td>' + title + '</td>                                     ';
+
+
+                            taskAssignHtml += '                         <td>' + results_AssignedToPerson + '</td>                                          ';
+                            taskAssignHtml += '<td style="display:none;" class="spstartdate' + data.d.results[i].ID + '"></td>   ';
+                            taskAssignHtml += '<td class="spduedate' + data.d.results[i].ID + '"></td>   ';
+                            //if (data.d.results[i].StartDate != null) {
+                            //    // alert(data.d.results[i].StartDate);
+                            //    taskAssignHtml += '                         <td style="display:none;">' + DateFunction(data.d.results[i].StartDate) + '</td>                                     ';
+                            //}
+                            //else {
+                            //    //  alert(data.d.results[i].StartDate);
+                            //    taskAssignHtml += '                         <td style="display:none;"></td>                                     ';
+                            //}
+                            //if (data.d.results[i].DueDate != null) {
+                            //    taskAssignHtml += '                         <td>' + DateFunction(data.d.results[i].DueDate) + '</td>                                     ';
+                            //}
+                            //else {
+                            //    taskAssignHtml += '                         <td></td>                                     ';
+                            //}
+
+                            taskAssignHtml += '                         <td>' + data.d.results[i].Status + '</td>                                          ';
+                            taskAssignHtml += '                         <td style="display:none;">' + description + '</td>                                          ';
+                            taskAssignHtml += '                     </tr>                                                              ';
+                        }
+
+                        taskAssignHtml += '                 </tbody>                                                               ';
+
+
+
+                    }
+
+                    $('#tableTaskAssignment').html(taskAssignHtml);
+
+                }
+
+            },
+            error: function (xhr) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            }
+        });
+
+        //SPServices for date pick value from list
+        $().SPServices({
+            operation: "GetListItems",
+            async: false,
+            listName: "Innovative Ideas Tasks",
+            CAMLViewFields: "<ViewFields><FieldRef Name='StartDate'/><FieldRef Name='DueDate'/></ViewFields>",
+            CAMLQuery: "<Query><Where><Eq><FieldRef Name='IdeaID' /><Value Type='Text'>" + getItems_ID + "</Value></Eq></Where></Query>",
+            //CAMLRowLimit: 20,
+            completefunc: function (xData, Status) {
+                var ItemCount = 0;
+                // if (ItemCount > 0) {
+                $(xData.responseXML).SPFilterNode("z:row").each(function () {
+
+                    var id = $(this).attr("ows_ID");
+
+                    if ($(this).attr("ows_StartDate") != undefined) {
+                        var StartDitemvalue = ($(this).attr("ows_StartDate")).split(' ')[0];
+                        var StartDsplitDateFormat = StartDitemvalue.split('-');
+                        var StartDbDate = StartDsplitDateFormat[2];
+                        var StartDbMonth = StartDsplitDateFormat[1];
+                        var StartDbYear = StartDsplitDateFormat[0];
+                        var StartDates = StartDbMonth + "/" + StartDbDate + "/" + StartDbYear;
+                        $(".spstartdate" + id).html(StartDates);
+
+                    }
+
+
+                    if ($(this).attr("ows_DueDate") != undefined) {
+                        var EndDitemvalue = ($(this).attr("ows_DueDate")).split(' ')[0];
+                        var EndDsplitDateFormat = EndDitemvalue.split('-');
+                        var EndDbDate = EndDsplitDateFormat[2];
+                        var EndDbMonth = EndDsplitDateFormat[1];
+                        var EndDbYear = EndDsplitDateFormat[0];
+                        var Enddate = EndDbMonth + "/" + EndDbDate + "/" + EndDbYear;
+                        $(".spduedate" + id).html(Enddate);
+
+                    }
+                    else {
+                        $(".spduedate").html('');
+                    }
+
+
+                })
+            }
+        });
+
+    }
+    // Task Assign Add Item
+    function CreateNewTask(currentITEMID) {
+
+        var taskName = $("#txtTaskName").val();
+        var taskDescription = $("#txtTaskDetails").val();
+        var task_Status = $("#taskStatus option:selected").text();
+        //alert(taskName);
+        getUserInfo('assignedTo');
+        //  alert(assignedTo);
+        // var assignedTo = "";
+        var startDate = null;
+        if ($("#startDatePicker").datepicker().val() != "") {
+            startDate = $("#startDatePicker").datepicker().val();
+        }
+        var endDate = null;
+        //alert(endDate);
+
+
+        if ($("#endDatePicker option:selected").text() != "") {
+            var endDatePickerValue = "" + $("#endDatePicker option:selected").text();
+            $("#startDatePicker").val(endDatePickerValue);
+
+            endDate = $("#startDatePicker").datepicker().val();
+            $("#startDatePicker").val(startDate);
+
+        }
+
+
+        var requestUri = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('" + taskListName + "')/items";
+        $.ajax(
+        {
+            url: requestUri,
+            async: false,
+            type: "POST",
+            data: JSON.stringify({
+                '__metadata': { 'type': 'SP.Data.' + taskListNameItem + 'ListItem' },
+                'Title': taskName,
+                'Body': taskDescription,
+                'StartDate': startDate,
+                'DueDate': endDate,
+                'IdeaID': currentITEMID,
+                'Idea_x0020_Primary_x0020_InnovatId': task_PrimaryInnovator_Idea,
+                'Idea_x0020_Co_x002d_InnovatorId': task_CoInnovator_Idea,
+                'Idea_x0020_Name': task_IdeaName,
+                'Idea_x0020_Description': task_Description,
+                'Status': task_Status,
+                'AssignedToId': {
+                    results: assignToPerson
+                }
+
+
+            }),
+            headers: {
+                "Accept": "application/json;odata=verbose",
+                "content-type": "application/json; odata=verbose",
+                "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+                // "X-HTTP-Method": "MERGE",
+                // "If-Match": "*"
+            },
+            success: function (data) {
+
+                postTaskId = data.d.Id;
+                LoadAllTasks(queryString);
+
+
+
+            },
+            error: function (err) {
+                alert("Delete List Item Error Message: " + JSON.stringify(err));
+                console.log("Delete List Item Error Message: " + JSON.stringify(err));
+            }
+        });
+    }
+
+    //Task Assign Delete Item
+    function DeleteTask(itemid) {
+        // var digest = "";
+        var requestUri = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('" + taskListName + "')/items(" + itemid + ")";
+        $.ajax(
+        {
+            url: requestUri,
+            async: false,
+            type: "POST",
+            headers: {
+                "ACCEPT": "application/json;odata=verbose",
+                "content-type": "application/json;odata=verbose",
+                "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+                "IF-MATCH": "*",
+                "X-HTTP-Method": "DELETE"
+            },
+            success: function (data) {
+                //alert("Item Deleted" + data);
+            },
+            error: function (err) {
+                alert("Delete List Item Error Message: " + JSON.stringify(err));
+            }
+        });
+    }
+
+
+    function UpdateTask(updateItemID) {
+
+        var taskName = $("#txtTaskName").val();
+        var taskDescription = $("#txtTaskDetails").val();
+        //alert(taskName);
+        getUserInfo('assignedTo');
+        // alert(assignedTo);
+        // var assignedTo = "";
+        // var startDate = $("#startDatePicker").datepicker().val();
+        //alert(startDate);
+        // var endDate = $("#endDatePicker").datepicker().val();
+        var startDate = null;
+        var endDate = null;
+        var startDate = $("#startDatePicker").datepicker().val();
+        //alert(endDate);
+        currentstage = "" + $("#taskStatus option:selected").text();
+
+
+        if ($("#endDatePicker option:selected").text() != "") {
+            var endDatePickerValue = "" + $("#endDatePicker option:selected").text();
+            $("#startDatePicker").val(endDatePickerValue);
+
+            endDate = $("#startDatePicker").datepicker().val();
+            $("#startDatePicker").val(startDate);
+
+        }
+
+      
+
+        $.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('" + taskListName + "')/items(" + updateItemID + ")",
+            type: "POST",
+            async: false,
+            data: JSON.stringify({
+                '__metadata': { 'type': 'SP.Data.Innovative_x0020_Ideas_x0020_TasksListItem' },
+                'Title': taskName,
+                'Body': taskDescription,
+                'DueDate': endDate,
+                'StartDate': startDate,
+                'Status': currentstage,
+                'Idea_x0020_Primary_x0020_InnovatId': task_PrimaryInnovator_Idea,
+                'Idea_x0020_Co_x002d_InnovatorId': task_CoInnovator_Idea,
+                'Idea_x0020_Name': task_IdeaName,
+                'AssignedToId': {
+                    results: assignToPerson
+                }
+
+
+            }),
+            headers: {
+                "accept": "application/json;odata=verbose",
+                "content-type": "application/json;odata=verbose",
+                "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+                "X-HTTP-Method": "MERGE",
+                "If-Match": "*"
+            },
+            success: function (data) {
+                //  alert("Items Updated Successfully");
+                //     $('.due_digilence').html("Your Idea Details have been submitted successfully");
+            },
+            error: function (err) {
+                alert("error" + JSON.stringify(err));
+                console.log("error" + JSON.stringify(err));
+            }
+        });
+
+    }
+    function Validation() {
+        var currentstage = "" + $("#currentstage option:selected").text();
+        var ideaCategory = "" + $("#txtideacategory option:selected").text();
+
+        var AssignDate = $("#txtAssignDate").datepicker().val();
+        var board = $("#boardpresentation option:selected").text();
+        //if (currentstage != "2- Due Diligence") {
+        //    alert("Please choose 2- Due Diligence in the current stage");
+        //    return false;
+        //}
+
+        //if (currentstage == "2- Due Diligence") {
+
+
+
+        //    if ($("#innovConsultant .ms-entity-resolved").html() == undefined) {
+        //        return false;
+        //    }
+        //    else if ($("#prjManager .ms-entity-resolved").html() == undefined) {
+        //        return false;
+        //    }
+        //    else if (ideaCategory == "Select") {
+        //        return false;
+        //    }
+        //    else if (ideaCategory == "") {
+        //        return false;
+        //    }
+        //    else if (AssignDate == "") {
+        //        return false;
+        //    }
+        //    else if (board == "") {
+        //        return false;
+        //    }
+        //    if (ideaCategory == "Other: Please specify") {
+        //        if ($('#otherDeptarment').val() == "") {
+
+        //            alert('Please Specify the Other Idea Cateogry');
+        //            return false;
+
+        //        }
+        //    }
+
+        //}
+        if (ideaCategory == "Other: Please specify") {
+            if ($('#otherDeptarment').val() == "") {
+
+                alert('Please Specify the Other Idea Cateogry');
+                return false;
+
+            }
+        }
+
+        return true;
+
+    }
+
+    function LoadAllDropdown() {
+
+
+
+
+        $.ajax({
+            //?$select=Title,ID,AverageRating,Vote,RatingCount,VoteUserID,Primary_x0020_Innovator/Id,Primary_x0020_Innovator/Title&$expand=Primary_x0020_Innovator&$orderby=Created%20desc&$top=20",
+
+            // url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('Innovative%20Ideas')/fields?$filter=EntityPropertyName eq 'Current_x0020_Stage' and EntityPropertyname eq'Region'",
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('Innovative%20Ideas')/fields",
+            type: "GET",
+            headers: { "accept": "application/json;odata=verbose" },
+            async: false,
+            success: function (data) {
+
+                if (data.d.results) {
+
+                  //  console.log(data.d.results);
+                    for (var i = 0; i < data.d.results.length; i++) {
+
+                        if (data.d.results[i].StaticName == "Current_x0020_Stage") {
+
+                            var currentStageHtml = "";
+                            for (var j = 0; j < data.d.results[i].Choices.results.length; j++) {
+
+                                currentStageHtml += '<option>' + data.d.results[i].Choices.results[j] + '</option>';
+
+                            }
+                            $('#currentstage').append(currentStageHtml);
+                        }
+
+
+                        if (data.d.results[i].StaticName == "Idea_x0020_Category") {
+
+                            var txtideacategoryHtml = "";
+                            for (var j = 0; j < data.d.results[i].Choices.results.length; j++) {
+
+                                txtideacategoryHtml += '<option>' + data.d.results[i].Choices.results[j] + '</option>';
+
+                            }
+                            $('#txtideacategory').append(txtideacategoryHtml);
+                        }
+
+                        if (data.d.results[i].StaticName == "Proposed_x0020_Decision") {
+
+                            var proposeddecisionHtml = "";
+                            for (var j = 0; j < data.d.results[i].Choices.results.length; j++) {
+
+                                proposeddecisionHtml += '<option>' + data.d.results[i].Choices.results[j] + '</option>';
+
+                            }
+                            $('#proposeddecision').append(proposeddecisionHtml);
+                        }
+
+                        // Idea Score Card Dropdown
+
+                        if (data.d.results[i].StaticName == "Value_x0020_Criteria_x0020__x002") {
+
+                            var score1Html = "";
+                            for (var j = 0; j < data.d.results[i].Choices.results.length; j++) {
+
+                                score1Html += '<option>' + data.d.results[i].Choices.results[j] + '</option>';
+
+                            }
+                            $('#score1').append(score1Html);
+                        }
+
+
+                        if (data.d.results[i].StaticName == "Value_x0020_Criteria_x0020__x0020") {
+
+                            var score2Html = "";
+                            for (var j = 0; j < data.d.results[i].Choices.results.length; j++) {
+
+                                score2Html += '<option>' + data.d.results[i].Choices.results[j] + '</option>';
+
+                            }
+                            $('#score2').append(score2Html);
+                        }
+
+
+                        if (data.d.results[i].StaticName == "Feasibility_x0020_Criteria_x0020") {
+
+                            var score3Html = "";
+                            for (var j = 0; j < data.d.results[i].Choices.results.length; j++) {
+
+                                score3Html += '<option>' + data.d.results[i].Choices.results[j] + '</option>';
+
+                            }
+                            $('#score3').append(score3Html);
+                        }
+
+
+
+                        if (data.d.results[i].StaticName == "Feasibility_x0020_Criteria_x00200") {
+
+                            var score4Html = "";
+                            for (var j = 0; j < data.d.results[i].Choices.results.length; j++) {
+
+                                score4Html += '<option>' + data.d.results[i].Choices.results[j] + '</option>';
+
+                            }
+                            $('#score4').append(score4Html);
+                        }
+
+                        if (data.d.results[i].StaticName == "Feasibility_x0020_Criteria_x00201") {
+
+                            var score5Html = "";
+                            for (var j = 0; j < data.d.results[i].Choices.results.length; j++) {
+
+                                score5Html += '<option>' + data.d.results[i].Choices.results[j] + '</option>';
+
+                            }
+                            $('#score5').append(score5Html);
+                        }
+                    }
+
+                }
+
+
+
+                //  console.log(data.d.results[0].Choices.results);
+                //  console.log(data.d.results[0].Choices.results[0]);
+            },
+            error: function (xhr) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            }
+        });
+
+
+
+    }
+</script>
+
+    <html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">NZDCQRYN72JQ-1850682920-204</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">fafe4bcb-42f0-4b7b-a7e1-51a200463b15</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://spworkshop.sharepoint.com/_layouts/15/DocIdRedir.aspx?ID=NZDCQRYN72JQ-1850682920-204, NZDCQRYN72JQ-1850682920-204</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

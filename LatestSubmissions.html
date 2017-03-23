@@ -1,0 +1,1085 @@
+﻿<!--<style>
+  
+
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tr{ overflow: hidden;}
+.table-fixed td, .table-fixed th{ width: 33%;}
+
+</style>-->
+
+
+<div class="table-responsive latstsubncont">
+    <table class="table table-fixed lats_submsn latestsubtable">
+        <thead>
+            <tr>
+                <th style="display: none">ID</th>
+                <th style="display: none">AverageRating</th>
+                <th><span class="sort sort_ratingdes">RATING (0-5 stars)<span></span></span></th>
+                <th><span class="sort sort_ideades">Idea<span></span></span></th>
+                <th><span class="sort sort_primarydes">Innovator<span></span></span></th>
+            </tr>
+        </thead>
+        <tbody id="latestsubtbody">
+        </tbody>
+    </table>
+</div>
+<style>
+    .sort {
+        position: relative;
+        display: block;
+    }
+
+        .sort span {
+            cursor: pointer;
+        }
+
+            .sort span:after {
+                position: absolute;
+                content: '';
+                width: 14px;
+                height: 11px;
+                top: 40%;
+                right: -12px;
+                cursor: pointer;
+                background-size: 60% 80%;
+                background-repeat: no-repeat;
+            }
+
+    .sort_ratingasc span:after {
+        background-image: url(../SiteAssets/InnovationDesignFiles/images/user_arrow_up.png);
+    }
+
+    .sort_ratingdes span:after {
+        background-image: url(../SiteAssets/InnovationDesignFiles/images/user_arrow_down.png);
+    }
+
+    .sort_ideaasc span:after {
+        background-image: url(../SiteAssets/InnovationDesignFiles/images/user_arrow_up.png);
+    }
+
+    .sort_ideades span:after {
+        background-image: url(../SiteAssets/InnovationDesignFiles/images/user_arrow_down.png);
+    }
+
+    .sort_phaseasc span:after {
+        background-image: url(../SiteAssets/InnovationDesignFiles/images/user_arrow_up.png);
+    }
+
+    .sort_phasedes span:after {
+        background-image: url(../SiteAssets/InnovationDesignFiles/images/user_arrow_down.png);
+    }
+
+    .sort_primarydes span:after {
+        background-image: url(../SiteAssets/InnovationDesignFiles/images/user_arrow_down.png);
+    }
+
+    .sort_primaryasc span:after {
+        background-image: url(../SiteAssets/InnovationDesignFiles/images/user_arrow_up.png);
+    }
+</style>
+<script src="../SiteAssets/InnovationDesignFiles/jquery.SPServices-0.7.1a.min.js"></script>
+<script>
+
+
+    var currentStageSet = "";
+    var pushVoteDetails = "";
+    var voteDataCount = "1";
+    var voteDetails = "";
+    var voteUserDetails = "";
+    var voteUserValue = "";
+    var value1;
+    var voteUserIdAddPip = "";
+    var ListName = "Innovative Ideas";
+    var sortlistname = "Innovative%20Ideas";
+    var InternalListName = "Innovative_x0020_Ideas";
+    var Latestsubmissionhtml = "";
+    var ProductsSite = _spPageContextInfo.webAbsoluteUrl;
+    var sortIDArray = [];
+    //var listID;
+    //var itemID;
+    //var RatingValue;
+    //var SKUNumber;
+    var returnParameter;
+    var voteHtml;
+    var latestsublistIDArray = [];
+    // Page Load
+    jQuery(document).ready(function () {
+        GetLatestSubmission();
+        $('div.rateit').rateit();
+        for (var i = 0; i < latestsublistIDArray.length; i++) {
+            var ratingItemID = $('.latestsubtable tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2)').html();
+            // alert(ratingItemID);
+            var rating = parseFloat(ratingItemID);
+            $('.setrate' + latestsublistIDArray[i] + '').rateit('value', rating);
+        }
+        $('.rateit').bind('rated reset', function (e) {
+            var ri = $(this);
+            var value = ri.rateit('value');
+            rateid = $(this).parents().eq(1).find('td:first').html();
+            comSetRating(rateid, value, ListName);
+        });
+        $(".sort_ratingasc").click(function () {
+            GetSortedLatestSubmission("<FieldRef Name='AverageRating'/>", ".sort_ratingasc", "sort_ratingdes", "sort_ratingasc", "rating");
+        });
+        $(".sort_ratingdes").click(function () {
+            GetSortedLatestSubmission("<FieldRef Name='AverageRating' Ascending='FALSE' />", ".sort_ratingdes", "sort_ratingasc", "sort_ratingdes", "rating");
+        });
+        $(".sort_ideaasc").click(function () {
+            GetSortedLatestSubmission("Title%20asc", ".sort_ideaasc", "sort_ideades", "sort_ideaasc", "others");
+        });
+        $(".sort_ideades").click(function () {
+            GetSortedLatestSubmission("Title%20desc", ".sort_ideades", "sort_ideaasc", "sort_ideades", "others");
+        });
+
+        $(".sort_primarydes").click(function () {
+            GetSortedLatestSubmission("Primary_x0020_Innovator%20desc", ".sort_primarydes", "sort_primaryasc", "sort_primarydes", "others");
+        });
+
+        $(".sort_primaryasc").click(function () {
+            GetSortedLatestSubmission("Primary_x0020_Innovator%20asc", ".sort_primarydes", "sort_primarydes", "sort_primaryasc", "others");
+        });
+
+
+    });
+
+    function GetLatestSubmission() {
+
+        var ratingHtml = "";
+        $('#latestsubtbody').html("");
+        Latestsubmissionhtml = "";
+        latestsublistIDArray = [];
+        $.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('" + ListName + "')/Items?$filter=Current_x0020_Stage eq '1- Submitted'&$select=Title,ID,Current_x0020_Stage,AverageRating,Vote,RatingCount,VoteUserID,Primary_x0020_Innovator/Id,Primary_x0020_Innovator/Title&$expand=Primary_x0020_Innovator&$orderby=Created%20desc&$top=5000",
+            type: "GET",
+            async: false,
+            headers: { "accept": "application/json;odata=verbose" },
+            success: function (data) {
+                if (data.d.results) {
+                    for (var i = 0; i < data.d.results.length; i++) {
+
+
+                        //Rating Code Start
+
+                        if (data.d.results[i].RatingCount == undefined) {
+                            ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + data.d.results[i].ID + '"><div class="rateit setrate' + data.d.results[i].ID + '" data-rateit-backingfld="#backing' + data.d.results[i].ID + '"></div><span class="rat_valu">(0)</span>';
+                        }
+                        else {
+                            ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + data.d.results[i].ID + '"><div class="rateit setrate' + data.d.results[i].ID + '" data-rateit-backingfld="#backing' + data.d.results[i].ID + '"></div><span class="rat_valu">(' + data.d.results[i].RatingCount + ')</span>';
+                        }
+
+
+                        //Rating Code End
+                        latestsublistIDArray.push(data.d.results[i].ID);
+                        //Bind tbody content Start
+
+
+                        var projectRedirectUrl = SetStagesWorkflowNavigation(data.d.results[i].Current_x0020_Stage) + data.d.results[i].ID;
+                        Latestsubmissionhtml += '<tr class="latestsubtr">';
+                        Latestsubmissionhtml += '<td style="display:none">' + data.d.results[i].ID + '</td>';
+                        Latestsubmissionhtml += '<td style="display:none">' + data.d.results[i].AverageRating + '</td>';
+                        Latestsubmissionhtml += '<td>' + ratingHtml + '</td>';
+                        // Latestsubmissionhtml +='<td>'+voteHtml+'</td>';
+                        Latestsubmissionhtml += '<td><a href=' + projectRedirectUrl + '>' + data.d.results[i].Title + '</a></td>';
+                        Latestsubmissionhtml += '<td>' + data.d.results[i].Primary_x0020_Innovator.Title + '</td>';
+                        Latestsubmissionhtml += '</tr>';
+
+                        //Bind tbody content End
+                    }
+
+                    $('#latestsubtbody').html(Latestsubmissionhtml);
+
+                    if (data.d.results.length > 5) {
+                        /*Slimscroll Starts*/
+                        $('.latstsubncont').slimScroll({
+                            width: '100%',
+                            height: '850px',
+                            size: '7px',
+                            color: '#0082bc',
+                            opacity: '0.4',
+                            alwaysVisible: false,
+                            distance: '5px',
+                            allowPageScroll: true,
+                        });
+                        /*Slimscroll Ends*/
+                    }
+                    else {
+                        /*Slimscroll Starts*/
+                        $('.latstsubncont').slimScroll({
+                            width: '100%',
+                            height: 'auto',
+                            size: '7px',
+                            color: '#0082bc',
+                            opacity: '0.4',
+                            alwaysVisible: false,
+                            distance: '5px',
+                            allowPageScroll: true,
+                        });
+                        /*Slimscroll Ends*/
+                    }
+                }
+
+            },
+            error: function (xhr) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            }
+        });
+    }
+    function GetSortedLatestSubmission(itemdetails, itemcsschange, itemaddclass, itemremoveclass, ratingandothers) {
+        sortIDArray = [];
+
+        $.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('" + ListName + "')/Items?$filter=Current_x0020_Stage eq '1- Submitted'&$select=Title,ID,Current_x0020_Stage,AverageRating,Vote,RatingCount,VoteUserID,Primary_x0020_Innovator/Id,Primary_x0020_Innovator/Title&$expand=Primary_x0020_Innovator&$orderby=Created%20desc&$top=5000",
+            type: "GET",
+            async: false,
+            headers: { "accept": "application/json;odata=verbose" },
+            success: function (data) {
+                if (data.d.results) {
+                    for (var i = 0; i < data.d.results.length; i++) {
+                        if (ratingandothers == "others") {
+                            sortIDArray.push(data.d.results[i].ID);
+
+                        }
+                        else if (ratingandothers == "rating") {
+                            var value = "" + data.d.results[i].ID;
+                            sortIDArray.push(value);
+                        }
+                    }
+                }
+                if (ratingandothers == "others") {
+                    console.log("others" + sortIDArray.length);
+                    Getideasascdetails(itemdetails, itemcsschange, itemaddclass, itemremoveclass);
+                }
+                else if (ratingandothers == "rating") {
+                    console.log("rating" + sortIDArray.length);
+                    Getratingideasdetails(itemdetails, itemcsschange, itemaddclass, itemremoveclass);
+                }
+
+            },
+            error: function (xhr) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            }
+        });
+    }
+
+    function Getideasascdetails(itemdetails, itemcsschange, itemaddclass, itemremoveclass) {
+        var ratingHtml = "";
+        $('#latestsubtbody').html("");
+        Latestsubmissionhtml = "";
+        latestsublistIDArray = [];
+        var deletedarray = [];
+        $.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('" + ListName + "')/Items?$filter=Current_x0020_Stage eq '1- Submitted'&$select=Title,ID,Current_x0020_Stage,AverageRating,Vote,RatingCount,VoteUserID,Primary_x0020_Innovator/Id,Primary_x0020_Innovator/Title&$expand=Primary_x0020_Innovator&$orderby=" + itemdetails + "&$top=5000",
+            type: "GET",
+            async: false,
+            headers: { "accept": "application/json;odata=verbose" },
+            success: function (data) {
+                if (data.d.results) {
+                    if (sortIDArray.length > 0) {
+
+                        for (var i = 0; i < data.d.results.length; i++) {
+                            var sortid = data.d.results[i].ID;
+                            deletedarray.push(data.d.results[i].ID);
+                            if (sortIDArray.indexOf(sortid) > -1) {
+
+                                if (data.d.results[i].RatingCount == undefined) {
+                                    ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + data.d.results[i].ID + '"><div class="rateit setrate' + data.d.results[i].ID + '" data-rateit-backingfld="#backing' + data.d.results[i].ID + '"></div><span class="rat_valu">(0)</span>';
+                                }
+                                else {
+                                    ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + data.d.results[i].ID + '"><div class="rateit setrate' + data.d.results[i].ID + '" data-rateit-backingfld="#backing' + data.d.results[i].ID + '"></div><span class="rat_valu">(' + data.d.results[i].RatingCount + ')</span>';
+                                }
+                                //Rating Code End
+                                latestsublistIDArray.push(data.d.results[i].ID);
+                                //Bind tbody content Start
+                                var projectRedirectUrl = SetStagesWorkflowNavigation(data.d.results[i].Current_x0020_Stage) + data.d.results[i].ID;
+                                Latestsubmissionhtml += '<tr class="latestsubtr">';
+                                Latestsubmissionhtml += '<td style="display:none">' + data.d.results[i].ID + '</td>';
+                                Latestsubmissionhtml += '<td style="display:none">' + data.d.results[i].AverageRating + '</td>';
+                                Latestsubmissionhtml += '<td>' + ratingHtml + '</td>';
+                                Latestsubmissionhtml += '<td><a href=' + projectRedirectUrl + '>' + data.d.results[i].Title + '</a></td>';
+                                Latestsubmissionhtml += '<td>' + data.d.results[i].Primary_x0020_Innovator.Title + '</td>';
+                                Latestsubmissionhtml += '</tr>';
+                            }
+                        }
+                    }
+                    //console.log("deletedarray" + deletedarray);
+                    //console.log("sortIDArray" + sortIDArray);
+                    $('#latestsubtbody').html(Latestsubmissionhtml);
+                    $(itemcsschange).removeClass(itemremoveclass).addClass(itemaddclass);
+                    $('div.rateit').rateit();
+                    for (var i = 0; i < latestsublistIDArray.length; i++) {
+                        var ratingItemID = $('.latestsubtable tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2)').html();
+                        // alert(ratingItemID);
+                        var rating = parseFloat(ratingItemID);
+                        $('.setrate' + latestsublistIDArray[i] + '').rateit('value', rating);
+                    }
+                    $('.rateit').bind('rated reset', function (e) {
+                        var ri = $(this);
+                        var value = ri.rateit('value');
+                        rateid = $(this).parents().eq(1).find('td:first').html();
+                        comSetRating(rateid, value, ListName);
+                    });
+                    $(".sort_ratingasc").click(function () {
+                        GetSortedLatestSubmission("<FieldRef Name='AverageRating'/>", ".sort_ratingasc", "sort_ratingdes", "sort_ratingasc", "rating");
+                    });
+                    $(".sort_ratingdes").click(function () {
+                        GetSortedLatestSubmission("<FieldRef Name='AverageRating' Ascending='FALSE' />", ".sort_ratingdes", "sort_ratingasc", "sort_ratingdes", "rating");
+                    });
+                    $(".sort_ideaasc").click(function () {
+                        GetSortedLatestSubmission("Title%20asc", ".sort_ideaasc", "sort_ideades", "sort_ideaasc", "others");
+                    });
+                    $(".sort_ideades").click(function () {
+                        GetSortedLatestSubmission("Title%20desc", ".sort_ideades", "sort_ideaasc", "sort_ideades", "others");
+                    });
+
+                    $(".sort_primarydes").click(function () {
+                        GetSortedLatestSubmission("Primary_x0020_Innovator%20desc", ".sort_primarydes", "sort_primaryasc", "sort_primarydes", "others");
+                    });
+
+                    $(".sort_primaryasc").click(function () {
+                        GetSortedLatestSubmission("Primary_x0020_Innovator%20asc", ".sort_primarydes", "sort_primarydes", "sort_primaryasc", "others");
+                    });
+                    if (data.d.results.length > 5) {
+                        /*Slimscroll Starts*/
+                        $('.latstsubncont').slimScroll({
+                            width: '100%',
+                            height: '850px',
+                            size: '7px',
+                            color: '#0082bc',
+                            opacity: '0.4',
+                            alwaysVisible: false,
+                            distance: '5px',
+                            allowPageScroll: true,
+                        });
+                        /*Slimscroll Ends*/
+                    }
+                    else {
+                        /*Slimscroll Starts*/
+                        $('.latstsubncont').slimScroll({
+                            width: '100%',
+                            height: 'auto',
+                            size: '7px',
+                            color: '#0082bc',
+                            opacity: '0.4',
+                            alwaysVisible: false,
+                            distance: '5px',
+                            allowPageScroll: true,
+                        });
+                        /*Slimscroll Ends*/
+                    }
+                }
+            },
+            error: function (xhr) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            }
+        });
+    }
+
+    function Getratingideasdetails(itemdetails, itemcsschange, itemaddclass, itemremoveclass) {
+        var ratingHtml = "";
+        $('#latestsubtbody').html("");
+        Latestsubmissionhtml = "";
+        latestsublistIDArray = [];
+        itemCount = "";
+        $().SPServices({
+            operation: "GetListItems",
+            async: false,
+            listName: ListName,
+            CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='AverageRating' /><FieldRef Name='Primary_x0020_Innovator'/><FieldRef Name='RatingCount' /><FieldRef Name='Current_x0020_Stage'/></ViewFields>",
+            CAMLQuery: "<Query><OrderBy>" + itemdetails + "</OrderBy></Query>",
+            completefunc: function (xData, Status) {
+                // console.log("Main Main" + xData.responseXML);
+                itemCount = $(xData.responseXML).SPFilterNode("rs:data").attr("ItemCount");
+                $(xData.responseXML).SPFilterNode("z:row").each(function () {
+                    //  deletedarray.push($(this).attr("ows_ID"));
+                    if (sortIDArray.length > 0) {
+
+                        var sortid = $(this).attr("ows_ID").toString();
+                        //console.log(sortid);
+                        if (sortIDArray.indexOf(sortid) > -1) {
+
+
+                            var currentstage = ($(this).attr("ows_Current_x0020_Stage"));
+                            var averagerating = ($(this).attr("ows_AverageRating"));
+                            var ratingvalue = ($(this).attr("ows_RatingCount"));
+                            var ratingcount = "";
+                            if (ratingvalue != undefined) {
+                                ratingcount = ratingvalue.split(",")[0];
+                            }
+                            else {
+                                ratingcount = "0";
+                            }
+                            var title = ($(this).attr("ows_Title"));
+                            var Primary = $(this).attr("ows_Primary_x0020_Innovator");
+                            var PrimaryInnovator = "";
+                            if (Primary != undefined) {
+                                PrimaryInnovator = Primary.split("#")[1];
+                            }
+                            var currentstatus = ($(this).attr("ows_Current_x0020_Stage"));
+                            var id = ($(this).attr("ows_ID"));
+
+
+                            if (ratingcount == undefined) {
+                                ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + id + '"><div class="rateit setrate' + id + '" data-rateit-backingfld="#backing' + id + '"></div><span class="rat_valu">(0)</span>';
+                            }
+                            else {
+                                ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + id + '"><div class="rateit setrate' + id + '" data-rateit-backingfld="#backing' + id + '"></div><span class="rat_valu">(' + ratingcount + ')</span>';
+                            }
+                            //Rating Code End
+                            if (currentstage == "1- Submitted") {
+                                latestsublistIDArray.push(id);
+                                //Bind tbody content Start
+                                var projectRedirectUrl = SetStagesWorkflowNavigation(currentstage) + id;
+                                Latestsubmissionhtml += '<tr class="latestsubtr">';
+                                Latestsubmissionhtml += '<td style="display:none">' + id + '</td>';
+                                Latestsubmissionhtml += '<td style="display:none">' + averagerating + '</td>';
+                                Latestsubmissionhtml += '<td>' + ratingHtml + '</td>';
+                                Latestsubmissionhtml += '<td><a href=' + projectRedirectUrl + '>' + title + '</a></td>';
+                                Latestsubmissionhtml += '<td>' + PrimaryInnovator + '</td>';
+                                Latestsubmissionhtml += '</tr>';
+                            }
+
+
+
+
+                        }
+                    }
+                })
+                $('#latestsubtbody').html(Latestsubmissionhtml);
+                $(itemcsschange).removeClass(itemremoveclass).addClass(itemaddclass);
+                $('div.rateit').rateit();
+                for (var i = 0; i < latestsublistIDArray.length; i++) {
+                    var ratingItemID = $('.latestsubtable tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2)').html();
+                    // alert(ratingItemID);
+                    var rating = parseFloat(ratingItemID);
+                    $('.setrate' + latestsublistIDArray[i] + '').rateit('value', rating);
+                }
+                $('.rateit').bind('rated reset', function (e) {
+                    var ri = $(this);
+                    var value = ri.rateit('value');
+                    rateid = $(this).parents().eq(1).find('td:first').html();
+                    comSetRating(rateid, value, ListName);
+                });
+                $(".sort_ratingasc").click(function () {
+                    GetSortedLatestSubmission("<FieldRef Name='AverageRating'/>", ".sort_ratingasc", "sort_ratingdes", "sort_ratingasc", "rating");
+                });
+                $(".sort_ratingdes").click(function () {
+                    GetSortedLatestSubmission("<FieldRef Name='AverageRating' Ascending='FALSE' />", ".sort_ratingdes", "sort_ratingasc", "sort_ratingdes", "rating");
+                });
+                $(".sort_ideaasc").click(function () {
+                    GetSortedLatestSubmission("Title%20asc", ".sort_ideaasc", "sort_ideades", "sort_ideaasc", "others");
+                });
+                $(".sort_ideades").click(function () {
+                    GetSortedLatestSubmission("Title%20desc", ".sort_ideades", "sort_ideaasc", "sort_ideades", "others");
+                });
+
+                $(".sort_primarydes").click(function () {
+                    GetSortedLatestSubmission("Primary_x0020_Innovator%20desc", ".sort_primarydes", "sort_primaryasc", "sort_primarydes", "others");
+                });
+
+                $(".sort_primaryasc").click(function () {
+                    GetSortedLatestSubmission("Primary_x0020_Innovator%20asc", ".sort_primarydes", "sort_primarydes", "sort_primaryasc", "others");
+                });
+                if (itemCount > 5) {
+                    /*Slimscroll Starts*/
+                    $('.latstsubncont').slimScroll({
+                        width: '100%',
+                        height: '850px',
+                        size: '7px',
+                        color: '#0082bc',
+                        opacity: '0.4',
+                        alwaysVisible: false,
+                        distance: '5px',
+                        allowPageScroll: true,
+                    });
+                    /*Slimscroll Ends*/
+                }
+                else {
+                    /*Slimscroll Starts*/
+                    $('.latstsubncont').slimScroll({
+                        width: '100%',
+                        height: 'auto',
+                        size: '7px',
+                        color: '#0082bc',
+                        opacity: '0.4',
+                        alwaysVisible: false,
+                        distance: '5px',
+                        allowPageScroll: true,
+                    });
+                    /*Slimscroll Ends*/
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Sorting Method Start
+
+    //function GetRatingasc(itemdetails, itemcsschange, itemaddclass, itemremoveclass) {
+    //    var ratingHtml = "";
+    //    $('#latestsubtbody').html("");
+    //    Latestsubmissionhtml = "";
+    //    latestsublistIDArray = [];
+    //    var itemCount = "";
+    //    $().SPServices({
+    //        operation: "GetListItems",
+    //        async: false,
+    //        listName: ListName,
+    //        CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='AverageRating' /><FieldRef Name='Primary_x0020_Innovator'/><FieldRef Name='RatingCount' /><FieldRef Name='Current_x0020_Stage'/></ViewFields>",
+    //        CAMLQuery: "<Query><OrderBy><FieldRef Name='AverageRating' Ascending='TRUE' /></OrderBy></Query>",
+    //        CAMLRowLimit: 20,
+    //        completefunc: function (xData, Status) {
+    //            //console.log("Main Main" + xData.responseXML);
+    //            itemCount = $(xData.responseXML).SPFilterNode("rs:data").attr("ItemCount");
+    //            $(xData.responseXML).SPFilterNode("z:row").each(function () {
+    //                //Rating Code Start
+
+    //                if ($(this).attr("ows_RatingCount") == undefined) {
+    //                    ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + $(this).attr("ows_ID") + '"><div class="rateit setrate' +$(this).attr("ows_ID")+ '" data-rateit-backingfld="#backing' + $(this).attr("ows_ID") + '"></div><span class="rat_valu">(0)</span>';
+    //                }
+    //                else {
+    //                    ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + $(this).attr("ows_ID") + '"><div class="rateit setrate' + $(this).attr("ows_ID") + '" data-rateit-backingfld="#backing' + $(this).attr("ows_ID") + '"></div><span class="rat_valu">(' + $(this).attr("ows_RatingCount") + ')</span>';
+    //                }
+
+
+    //                //Rating Code End
+    //                latestsublistIDArray.push($(this).attr("ows_ID"));
+    //                //Bind tbody content Start
+
+
+    //                var projectRedirectUrl = SetStagesWorkflowNavigation($(this).attr("ows_IDCurrent_x0020_Stage")) + $(this).attr("ows_ID");
+    //                Latestsubmissionhtml += '<tr class="latestsubtr">';
+    //                Latestsubmissionhtml += '<td style="display:none">' + $(this).attr("ows_ID") + '</td>';
+    //                Latestsubmissionhtml += '<td style="display:none">' + $(this).attr("ows_AverageRating") + '</td>';
+    //                Latestsubmissionhtml += '<td>' + ratingHtml + '</td>';
+    //                // Latestsubmissionhtml +='<td>'+voteHtml+'</td>';
+    //                Latestsubmissionhtml += '<td><a href=' + projectRedirectUrl + '>' + $(this).attr("ows_Title"); + '</a></td>';
+    //                Latestsubmissionhtml += '<td>' + $(this).attr("ows_Primary_x0020_Innovator") + '</td>';
+    //                Latestsubmissionhtml += '</tr>';
+
+    //                //Bind tbody content End
+    //            });
+
+    //                $('#latestsubtbody').html(Latestsubmissionhtml);
+    //            $(itemcsschange).removeClass(itemremoveclass).addClass(itemaddclass);
+    //            if (itemCount > 5) {
+    //                /*Slimscroll Starts*/
+    //                $('.latstsubncont').slimScroll({
+    //                    width: '100%',
+    //                    height: '850px',
+    //                    size: '7px',
+    //                    color: '#0082bc',
+    //                    opacity: '0.4',
+    //                    alwaysVisible: false,
+    //                    distance: '5px',
+    //                    allowPageScroll: true,
+    //                });
+    //                /*Slimscroll Ends*/
+    //            }
+    //            else {
+    //                /*Slimscroll Starts*/
+    //                $('.latstsubncont').slimScroll({
+    //                    width: '100%',
+    //                    height: 'auto',
+    //                    size: '7px',
+    //                    color: '#0082bc',
+    //                    opacity: '0.4',
+    //                    alwaysVisible: false,
+    //                    distance: '5px',
+    //                    allowPageScroll: true,
+    //                });
+    //                /*Slimscroll Ends*/
+    //            }
+
+
+    //            $('div.rateit').rateit();
+
+    //            for (var i = 0; i < latestsublistIDArray.length; i++) {
+    //                var ratingItemID = $('.latestsubtable tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2)').html();
+    //                // alert(ratingItemID);
+    //                var rating = parseFloat(ratingItemID);
+    //                $('.setrate' + latestsublistIDArray[i] + '').rateit('value', rating);
+
+    //            }
+
+    //            $('.rateit').bind('rated reset', function (e) {
+    //                // alert('Entered');
+    //                var ri = $(this);
+    //                var value = ri.rateit('value');
+    //                // alert(value);
+    //                rateid = $(this).parents().eq(1).find('td:first').html();
+    //                comSetRating(rateid, value, ListName);
+    //            });
+
+
+    //            $(".sort_ideades").click(function () {
+    //                GetdesLatestSubmission("Title%20desc", ".sort_ideades", "sort_ideaasc", "sort_ideades");
+    //            });
+
+    //            $(".sort_primarydes").click(function () {
+    //                GetdesLatestSubmission("Primary_x0020_Innovator%20desc", ".sort_primarydes", "sort_primaryasc", "sort_primarydes");
+    //            });
+
+    //            $(".sort_ratingdes").click(function () {
+    //                GetRatingdes("AverageRating%20desc", ".sort_ratingdes", "sort_ratingasc", "sort_ratingdes");
+    //            });
+    //        }
+    //    });
+
+    //}   
+    //function GetRatingdes(itemdetails, itemcsschange, itemaddclass, itemremoveclass) {
+    //    var ratingHtml = "";
+    //    $('#latestsubtbody').html("");
+    //    Latestsubmissionhtml = "";
+    //    latestsublistIDArray = [];
+    //    var itemCount = "";
+    //    $().SPServices({
+    //        operation: "GetListItems",
+    //        async: false,
+    //        listName: ListName,
+    //        CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='AverageRating' /><FieldRef Name='Primary_x0020_Innovator'/><FieldRef Name='RatingCount' /><FieldRef Name='Current_x0020_Stage'/></ViewFields>",
+    //        CAMLQuery: "<Query><OrderBy><FieldRef Name='AverageRating' Ascending='FALSE' /></OrderBy></Query>",
+    //        CAMLRowLimit: 20,
+    //        completefunc: function (xData, Status) {
+    //            itemCount = $(xData.responseXML).SPFilterNode("rs:data").attr("ItemCount");
+    //            $(xData.responseXML).SPFilterNode("z:row").each(function () {
+    //                //Rating Code Start
+
+    //                if ($(this).attr("ows_RatingCount") == undefined) {
+    //                    ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + $(this).attr("ows_ID") + '"><div class="rateit setrate' + $(this).attr("ows_ID") + '" data-rateit-backingfld="#backing' + $(this).attr("ows_ID") + '"></div><span class="rat_valu">(0)</span>';
+    //                }
+    //                else {
+    //                    ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + $(this).attr("ows_ID") + '"><div class="rateit setrate' + $(this).attr("ows_ID") + '" data-rateit-backingfld="#backing' + $(this).attr("ows_ID") + '"></div><span class="rat_valu">(' + $(this).attr("ows_RatingCount") + ')</span>';
+    //                }
+
+
+    //                //Rating Code End
+    //                latestsublistIDArray.push($(this).attr("ows_ID"));
+    //                //Bind tbody content Start
+
+
+    //                var projectRedirectUrl = SetStagesWorkflowNavigation($(this).attr("ows_IDCurrent_x0020_Stage")) + $(this).attr("ows_ID");
+    //                Latestsubmissionhtml += '<tr class="latestsubtr">';
+    //                Latestsubmissionhtml += '<td style="display:none">' + $(this).attr("ows_ID") + '</td>';
+    //                Latestsubmissionhtml += '<td style="display:none">' + $(this).attr("ows_AverageRating") + '</td>';
+    //                Latestsubmissionhtml += '<td>' + ratingHtml + '</td>';
+    //                // Latestsubmissionhtml +='<td>'+voteHtml+'</td>';
+    //                Latestsubmissionhtml += '<td><a href=' + projectRedirectUrl + '>' + $(this).attr("ows_Title"); + '</a></td>';
+    //                Latestsubmissionhtml += '<td>' + $(this).attr("ows_Primary_x0020_Innovator") + '</td>';
+    //                Latestsubmissionhtml += '</tr>';
+
+    //                //Bind tbody content End
+    //            })
+    //            $('#latestsubtbody').html(Latestsubmissionhtml);
+    //            $(itemcsschange).removeClass(itemremoveclass).addClass(itemaddclass);
+    //            if (itemCount > 5) {
+    //                /*Slimscroll Starts*/
+    //                $('.latstsubncont').slimScroll({
+    //                    width: '100%',
+    //                    height: '850px',
+    //                    size: '7px',
+    //                    color: '#0082bc',
+    //                    opacity: '0.4',
+    //                    alwaysVisible: false,
+    //                    distance: '5px',
+    //                    allowPageScroll: true,
+    //                });
+    //                /*Slimscroll Ends*/
+    //            }
+    //            else {
+    //                /*Slimscroll Starts*/
+    //                $('.latstsubncont').slimScroll({
+    //                    width: '100%',
+    //                    height: 'auto',
+    //                    size: '7px',
+    //                    color: '#0082bc',
+    //                    opacity: '0.4',
+    //                    alwaysVisible: false,
+    //                    distance: '5px',
+    //                    allowPageScroll: true,
+    //                });
+    //                /*Slimscroll Ends*/
+    //            }
+
+    //            $('div.rateit').rateit();
+
+    //            for (var i = 0; i < latestsublistIDArray.length; i++) {
+    //                var ratingItemID = $('.latestsubtable tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2)').html();
+    //                // alert(ratingItemID);
+    //                var rating = parseFloat(ratingItemID);
+    //                $('.setrate' + latestsublistIDArray[i] + '').rateit('value', rating);
+
+    //            }
+
+    //            $('.rateit').bind('rated reset', function (e) {
+    //                // alert('Entered');
+    //                var ri = $(this);
+    //                var value = ri.rateit('value');
+    //                // alert(value);
+    //                rateid = $(this).parents().eq(1).find('td:first').html();
+    //                comSetRating(rateid, value, ListName);
+    //            });
+
+    //            $(".sort_ideaasc").click(function () {
+    //                GetascLatestSubmission("Title%20asc", ".sort_ideaasc", "sort_ideades", "sort_ideaasc");
+    //            });
+    //            $(".sort_ratingasc").click(function () {
+    //                GetRatingasc("AverageRating%20asc", ".sort_ratingasc", "sort_ratingdes", "sort_ratingasc");
+    //            });
+    //            $(".sort_primaryasc").click(function () {
+    //                GetascLatestSubmission("Primary_x0020_Innovator%20asc", ".sort_primarydes", "sort_primarydes", "sort_primaryasc");
+    //            });
+    //        }
+    //    });
+
+    //}
+    //function LoadVoteUserDetail() {
+    //    var termUrl = _spPageContextInfo.webAbsoluteUrl + "/_api/web/currentuser/?$expand=groups";
+    //    $.ajax({
+    //        url: termUrl,
+    //        type: "GET",
+    //        headers: { "accept": "application/json;odata=verbose" },
+    //        async: false,
+    //        success: function (data) {
+    //            voteUserValue = data.d.Id;
+    //        },
+    //        error: function (xhr) {
+    //            alert(xhr.status + ': ' + xhr.statusText);
+    //        }
+    //    });
+    //}
+    //function GetVoteCountValue(voteItemID, voteItemValue) {
+    //    var url = _spPageContextInfo.webAbsoluteUrl + "/_api/Web/Lists/GetByTitle('" + ListName + "')/items(" + voteItemID + ")?$select=" + voteItemValue;
+    //    jQuery.ajax({
+    //        url: url,
+    //        method: "GET",
+    //        async: false,
+    //        headers: { "Accept": "application/json; odata=verbose" },
+    //        success: function (data) {
+    //            if (data.d) {
+
+    //                value1 = data.d.Vote;
+    //                if (data.d.VoteUserID != undefined) {
+    //                    voteUserIdAddPip = data.d.VoteUserID;
+    //                }
+    //            }
+    //        },
+    //        error: function () {
+    //            alert("error");
+    //        }
+    //    });
+
+    //}
+    //function updateListItemValue(itemId) {
+
+    //    // alert('start');
+    //    // $(this).attr('href','dummy');
+    //    $(this).attr('href', '').css({ 'cursor': 'pointer', 'pointer-events': 'none' });
+    //    // alert('over');
+    //    var addedVaule;
+    //    var voteExistingValue;
+    //    GetVoteCountValue(itemId, "Vote,VoteUserID");
+    //    voteExistingValue = value1;
+    //    if (voteExistingValue == undefined) {
+    //        voteDetails = voteDataCount;
+    //    }
+    //    else {
+    //        addedVaule = ++voteExistingValue;
+    //        voteDetails = "" + addedVaule;
+    //    }
+
+    //    if (voteUserIdAddPip == undefined) {
+    //        voteUserDetails = "" + voteUserValue;
+    //    }
+    //    else {
+    //        voteUserDetails = "" + voteUserIdAddPip + "|" + voteUserValue;
+    //    }
+    //    $.ajax({
+    //        url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/GetByTitle('" + ListName + "')/items(" + itemId + ")",
+    //        type: "POST",
+    //        data: JSON.stringify({
+    //            '__metadata': { 'type': 'SP.Data.' + InternalListName + 'ListItem' },
+    //            'Vote': voteDetails,
+    //            'VoteUserID': voteUserDetails
+    //        }),
+    //        headers: {
+    //            "Accept": "application/json;odata=verbose",
+    //            "content-type": "application/json; odata=verbose",
+    //            "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+    //            "X-HTTP-Method": "MERGE",
+    //            "If-Match": "*"
+    //        },
+    //        success: function (data) {
+    //            //alert("Item updated successfully!");
+    //            $(".updatelistitemvalue" + itemId + "").html("<span class='voteclass disvote'>Vote</span><span class='votecount'>(" + voteDetails + ")</span>");
+
+    //        },
+    //        error: function (err) {
+    //            alert("Error while updating item: " + JSON.stringify(err));
+    //        }
+
+    //    });
+
+
+    //}
+    //function GetascLatestSubmission(itemdetails, itemcsschange, itemaddclass, itemremoveclass) {
+    //    var ratingHtml = "";
+    //    $('#latestsubtbody').html("");
+    //    Latestsubmissionhtml = "";
+    //    latestsublistIDArray = [];
+    //    var requesturl = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('" + sortlistname + "')/Items?$select=Title,ID,Current_x0020_Stage,AverageRating,Vote,RatingCount,VoteUserID,Primary_x0020_Innovator/Id,Primary_x0020_Innovator/Title&$expand=Primary_x0020_Innovator&$orderby=" + itemdetails + "&$top=20";
+    //    $.ajax({
+    //        url: requesturl,
+    //        type: "GET",
+    //        async: false,
+    //        headers: { "accept": "application/json;odata=verbose" },
+    //        success: function (data) {
+    //            if (data.d.results) {
+    //                for (var i = 0; i < data.d.results.length; i++) {
+
+
+    //                    //Rating Code Start
+
+    //                    if (data.d.results[i].RatingCount == undefined) {
+    //                        ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + data.d.results[i].ID + '"><div class="rateit setrate' + data.d.results[i].ID + '" data-rateit-backingfld="#backing' + data.d.results[i].ID + '"></div><span class="rat_valu">(0)</span>';
+    //                    }
+    //                    else {
+    //                        ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + data.d.results[i].ID + '"><div class="rateit setrate' + data.d.results[i].ID + '" data-rateit-backingfld="#backing' + data.d.results[i].ID + '"></div><span class="rat_valu">(' + data.d.results[i].RatingCount + ')</span>';
+    //                    }
+
+
+    //                    //Rating Code End
+    //                    latestsublistIDArray.push(data.d.results[i].ID);
+    //                    //Bind tbody content Start
+
+
+    //                    var projectRedirectUrl = SetStagesWorkflowNavigation(data.d.results[i].Current_x0020_Stage) + data.d.results[i].ID;
+    //                    Latestsubmissionhtml += '<tr class="latestsubtr">';
+    //                    Latestsubmissionhtml += '<td style="display:none">' + data.d.results[i].ID + '</td>';
+    //                    Latestsubmissionhtml += '<td style="display:none">' + data.d.results[i].AverageRating + '</td>';
+    //                    Latestsubmissionhtml += '<td>' + ratingHtml + '</td>';
+    //                    // Latestsubmissionhtml +='<td>'+voteHtml+'</td>';
+    //                    Latestsubmissionhtml += '<td><a href=' + projectRedirectUrl + '>' + data.d.results[i].Title + '</a></td>';
+    //                    Latestsubmissionhtml += '<td>' + data.d.results[i].Primary_x0020_Innovator.Title + '</td>';
+    //                    Latestsubmissionhtml += '</tr>';
+
+    //                    //Bind tbody content End
+    //                }
+
+    //                $('#latestsubtbody').html(Latestsubmissionhtml);
+    //                $(itemcsschange).removeClass(itemremoveclass).addClass(itemaddclass);
+    //                if (data.d.results.length > 5) {
+    //                    /*Slimscroll Starts*/
+    //                    $('.latstsubncont').slimScroll({
+    //                        width: '100%',
+    //                        height: '850px',
+    //                        size: '7px',
+    //                        color: '#0082bc',
+    //                        opacity: '0.4',
+    //                        alwaysVisible: false,
+    //                        distance: '5px',
+    //                        allowPageScroll: true,
+    //                    });
+    //                    /*Slimscroll Ends*/
+    //                }
+    //                else {
+    //                    /*Slimscroll Starts*/
+    //                    $('.latstsubncont').slimScroll({
+    //                        width: '100%',
+    //                        height: 'auto',
+    //                        size: '7px',
+    //                        color: '#0082bc',
+    //                        opacity: '0.4',
+    //                        alwaysVisible: false,
+    //                        distance: '5px',
+    //                        allowPageScroll: true,
+    //                    });
+    //                    /*Slimscroll Ends*/
+    //                }
+
+
+    //                $('div.rateit').rateit();
+
+    //                for (var i = 0; i < latestsublistIDArray.length; i++) {
+    //                    var ratingItemID = $('.latestsubtable tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2)').html();
+    //                    // alert(ratingItemID);
+    //                    var rating = parseFloat(ratingItemID);
+    //                    $('.setrate' + latestsublistIDArray[i] + '').rateit('value', rating);
+
+    //                }
+
+    //                $('.rateit').bind('rated reset', function (e) {
+    //                    // alert('Entered');
+    //                    var ri = $(this);
+    //                    var value = ri.rateit('value');
+    //                    // alert(value);
+    //                    rateid = $(this).parents().eq(1).find('td:first').html();
+    //                    comSetRating(rateid, value, ListName);
+    //                });
+
+
+    //                $(".sort_ideades").click(function () {
+    //                    GetdesLatestSubmission("Title%20desc", ".sort_ideades", "sort_ideaasc", "sort_ideades");
+    //                });
+
+    //                $(".sort_primarydes").click(function () {
+    //                    GetdesLatestSubmission("Primary_x0020_Innovator%20desc", ".sort_primarydes", "sort_primaryasc", "sort_primarydes");
+    //                });
+
+
+
+
+    //            }
+
+    //        },
+    //        error: function (xhr) {
+    //            alert(xhr.status + ': ' + xhr.statusText);
+    //        }
+    //    });
+    //}
+
+    //function GetdesLatestSubmission(itemdetails, itemcsschange, itemaddclass, itemremoveclass) {
+    //    var ratingHtml = "";
+    //    $('#latestsubtbody').html("");
+    //    Latestsubmissionhtml = "";
+    //    latestsublistIDArray = [];
+    //    var requesturl = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('" + sortlistname + "')/Items?$select=Title,ID,Current_x0020_Stage,AverageRating,Vote,RatingCount,VoteUserID,Primary_x0020_Innovator/Id,Primary_x0020_Innovator/Title&$expand=Primary_x0020_Innovator&$orderby=" + itemdetails + "&$top=20";
+    //    $.ajax({
+    //        url: requesturl,
+    //        type: "GET",
+    //        async: false,
+    //        headers: { "accept": "application/json;odata=verbose" },
+    //        success: function (data) {
+    //            if (data.d.results) {
+    //                for (var i = 0; i < data.d.results.length; i++) {
+
+
+    //                    //Rating Code Start
+
+    //                    if (data.d.results[i].RatingCount == undefined) {
+    //                        ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + data.d.results[i].ID + '"><div class="rateit setrate' + data.d.results[i].ID + '" data-rateit-backingfld="#backing' + data.d.results[i].ID + '"></div><span class="rat_valu">(0)</span>';
+    //                    }
+    //                    else {
+    //                        ratingHtml = '<input type="range" min="0" max="5" value="0" step="1" id="backing' + data.d.results[i].ID + '"><div class="rateit setrate' + data.d.results[i].ID + '" data-rateit-backingfld="#backing' + data.d.results[i].ID + '"></div><span class="rat_valu">(' + data.d.results[i].RatingCount + ')</span>';
+    //                    }
+
+
+    //                    //Rating Code End
+    //                    latestsublistIDArray.push(data.d.results[i].ID);
+    //                    //Bind tbody content Start
+
+
+    //                    var projectRedirectUrl = SetStagesWorkflowNavigation(data.d.results[i].Current_x0020_Stage) + data.d.results[i].ID;
+    //                    Latestsubmissionhtml += '<tr class="latestsubtr">';
+    //                    Latestsubmissionhtml += '<td style="display:none">' + data.d.results[i].ID + '</td>';
+    //                    Latestsubmissionhtml += '<td style="display:none">' + data.d.results[i].AverageRating + '</td>';
+    //                    Latestsubmissionhtml += '<td>' + ratingHtml + '</td>';
+    //                    // Latestsubmissionhtml +='<td>'+voteHtml+'</td>';
+    //                    Latestsubmissionhtml += '<td><a href=' + projectRedirectUrl + '>' + data.d.results[i].Title + '</a></td>';
+    //                    Latestsubmissionhtml += '<td>' + data.d.results[i].Primary_x0020_Innovator.Title + '</td>';
+    //                    Latestsubmissionhtml += '</tr>';
+
+    //                    //Bind tbody content End
+    //                }
+
+    //                $('#latestsubtbody').html(Latestsubmissionhtml);
+    //                $(itemcsschange).removeClass(itemremoveclass).addClass(itemaddclass);
+    //                if (data.d.results.length > 5) {
+    //                    /*Slimscroll Starts*/
+    //                    $('.latstsubncont').slimScroll({
+    //                        width: '100%',
+    //                        height: '850px',
+    //                        size: '7px',
+    //                        color: '#0082bc',
+    //                        opacity: '0.4',
+    //                        alwaysVisible: false,
+    //                        distance: '5px',
+    //                        allowPageScroll: true,
+    //                    });
+    //                    /*Slimscroll Ends*/
+    //                }
+    //                else {
+    //                    /*Slimscroll Starts*/
+    //                    $('.latstsubncont').slimScroll({
+    //                        width: '100%',
+    //                        height: 'auto',
+    //                        size: '7px',
+    //                        color: '#0082bc',
+    //                        opacity: '0.4',
+    //                        alwaysVisible: false,
+    //                        distance: '5px',
+    //                        allowPageScroll: true,
+    //                    });
+    //                    /*Slimscroll Ends*/
+    //                }
+
+    //                $('div.rateit').rateit();
+
+    //                for (var i = 0; i < latestsublistIDArray.length; i++) {
+    //                    var ratingItemID = $('.latestsubtable tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2)').html();
+    //                    // alert(ratingItemID);
+    //                    var rating = parseFloat(ratingItemID);
+    //                    $('.setrate' + latestsublistIDArray[i] + '').rateit('value', rating);
+
+    //                }
+
+    //                $('.rateit').bind('rated reset', function (e) {
+    //                    // alert('Entered');
+    //                    var ri = $(this);
+    //                    var value = ri.rateit('value');
+    //                    // alert(value);
+    //                    rateid = $(this).parents().eq(1).find('td:first').html();
+    //                    comSetRating(rateid, value, ListName);
+    //                });
+
+    //                $(".sort_ideaasc").click(function () {
+    //                    GetascLatestSubmission("Title%20asc", ".sort_ideaasc", "sort_ideades", "sort_ideaasc");
+    //                });
+
+    //                $(".sort_primaryasc").click(function () {
+    //                    GetascLatestSubmission("Primary_x0020_Innovator%20asc", ".sort_primarydes", "sort_primarydes", "sort_primaryasc");
+    //                });
+
+    //            }
+
+    //        },
+    //        error: function (xhr) {
+    //            alert(xhr.status + ': ' + xhr.statusText);
+    //        }
+    //    });
+    //}
+</script>
+
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">NZDCQRYN72JQ-1850682920-302</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">f70ba5a1-73e1-4058-bd3b-37e0edf9eb44</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://spworkshop.sharepoint.com/_layouts/15/DocIdRedir.aspx?ID=NZDCQRYN72JQ-1850682920-302, NZDCQRYN72JQ-1850682920-302</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
